@@ -1,0 +1,10 @@
+.circleProcessBar-wrapper {
+  display:inline-block;
+  width: 53px;
+  margin: 0 auto;
+  height: 53px;
+  line-height: 53px;
+  text-align: center;
+  font-size: 12px;
+  background: url("../../../static/img/circleProcessbar.png") -5px 0 no-repeat;
+}

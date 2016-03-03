@@ -1,0 +1,32 @@
+{
+  "data":[
+    {
+      "title":"160222-01",
+      "yearRate":0.115,
+      "remainAmount":100000,
+      "totalAmount":1000000,
+      "statu":"binding"
+    },
+    {
+      "title":"160222-02",
+      "yearRate":0.115,
+      "remainAmount":200000,
+      "totalAmount":1000000,
+      "statu":"binding"
+    },
+    {
+      "title":"160222-03",
+      "yearRate":0.115,
+      "remainAmount":300000,
+      "totalAmount":1000000,
+      "statu":"binding"
+    },
+    {
+      "title":"160222-04",
+      "yearRate":0.115,
+      "remainAmount":400000,
+      "totalAmount":1000000,
+      "statu":"binding"
+    }
+    ]
+}
