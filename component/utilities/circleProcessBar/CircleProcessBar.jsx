@@ -4,7 +4,7 @@ var React=require("react");
 var CircleProcessBar=React.createClass({
     getDefaultProps:function(){
         return {
-            percentage:50
+            percentage:60
         }
     },
     propTypes:{
