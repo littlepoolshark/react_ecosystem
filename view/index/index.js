@@ -6,16 +6,17 @@ var InvestmentList=require("../../component/index/investmentList/InvestmentList.
 var Modal=require("../../component/utilities/modal/Modal.jsx");
 var testButton=document.getElementById("test");
 var openModalBtn=document.getElementById("openModalBtn");
+var closeModalBtn=document.getElementById("closeModalBtn");
 var investmentListContainer=document.getElementById("investmentListContainer");
 var modalContainer=document.getElementById("modalContainer");
 var ModalInstance=<Modal
-                        title="请选择加息券"
+                        title="��ʾ"
                         content={
                                     <div className="modal-content">
                                           <input type="text"/>
                                     </div>
                                  }
-                        sureCallback={function(){alert("提交成功")}}
+                        sureCallback={function(){window.location.reload(true)}}
                     >
                     </Modal>;
 
@@ -35,7 +36,8 @@ testButton.addEventListener("click",function(){
 },false)
 
 openModalBtn.addEventListener("click",function(){
-
     Modal.open();
-
+},false)
+closeModalBtn.addEventListener("click",function(){
+    Modal.close();
 },false)

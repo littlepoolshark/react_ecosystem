@@ -4,7 +4,7 @@ var $=require("jquery");
 var classNames=require("classnames");
 var pubsub={};
 var microEvent=require("../../../lib/microevent.js");
-microEvent.mixin(pubsub);
+microEvent.mixin(pubsub);//发布者-订阅者模式
 
 var Modal=React.createClass({
     getInitialState:function(){
@@ -22,12 +22,16 @@ var Modal=React.createClass({
         this.props.sureCallback.apply(null);
     },
     componentDidMount:function(){
-        console.log("into didMount");
         var _self=this;
-        pubsub.bind("open",function(){
-            console.log("into bind open");
-            _self.setState({
+        pubsub.bind("modal.open",function(){
+            this.setState({
                 hide:false
+            });
+        }.bind(this));
+
+        pubsub.bind("modal.close",function(){
+            _self.setState({
+                hide:true
             });
         });
     },
@@ -44,8 +48,8 @@ var Modal=React.createClass({
                     <div className="modal-header">{this.props.title}<span className="pull-right close-btn" onClick={this._closeModal}>&times;</span></div>
                     <div className="modal-body">{content}</div>
                     <div className="modal-footer">
-                        <button className="sure-btn" onClick={this._sureCallback}>确定</button>
-                        <button className="cancle-btn" onClick={this._closeModal}>取消</button>
+                        <button className="sure-btn" onClick={this._sureCallback}> 确定 </button>
+                        <button className="cancle-btn" onClick={this._closeModal}> 取消 </button>
                     </div>
                 </div>
             </div>
@@ -55,7 +59,9 @@ var Modal=React.createClass({
 
 
 Modal.open=function(){
-    console.log("pubsub:",pubsub.trigger);
-    pubsub.trigger("open");
-}
+    pubsub.trigger("modal.open");
+};
+Modal.close=function(){
+    pubsub.trigger("modal.close");
+};
 module.exports=Modal;
