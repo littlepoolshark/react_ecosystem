@@ -8,22 +8,13 @@ var testButton=document.getElementById("test");
 var openModalBtn=document.getElementById("openModalBtn");
 var closeModalBtn=document.getElementById("closeModalBtn");
 var investmentListContainer=document.getElementById("investmentListContainer");
-var modalContainer=document.getElementById("modalContainer");
-var ModalInstance=<Modal
-                        title="ÌבÊ¾"
-                        content={
-                                    <div className="modal-content">
-                                          <input type="text"/>
-                                    </div>
-                                 }
-                        sureCallback={function(){window.location.reload(true)}}
-                    >
-                    </Modal>;
+//var modalContainer=document.getElementById("modalContainer");
+
 
 ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
 ReactDOM.render(<CircleProcessBar percentage={100} />,document.getElementById("circleProcessBarContainer"));
 ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
-ReactDOM.render(ModalInstance,modalContainer);
+
 
 testButton.addEventListener("click",function(){
 
@@ -36,7 +27,8 @@ testButton.addEventListener("click",function(){
 },false)
 
 openModalBtn.addEventListener("click",function(){
-    Modal.open();
+    //alert("sdfsda")
+    Modal.alert("hello,modal component!");
 },false)
 closeModalBtn.addEventListener("click",function(){
     Modal.close();

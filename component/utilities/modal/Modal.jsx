@@ -1,28 +1,131 @@
+"use strict";
 require("./Modal.css");
 var React=require("react");
+var ReactDOM=require("react-dom");
+var Lifecycle=require("react-lifecycle");
 var $=require("jquery");
 var classNames=require("classnames");
 var pubsub={};
+var modalContainer=null;
 var microEvent=require("../../../lib/microevent.js");
 microEvent.mixin(pubsub);//发布者-订阅者模式
 
 var Modal=React.createClass({
+    mixins:[Lifecycle],
+    getDefaultProps:function(){
+        return {
+            title:"",
+            content:(
+                <div>这是一个模态窗口！！</div>
+            ),
+            buttons:{
+                "按钮1":function(){
+                    alert("你点击了按钮1！！");
+                    return true;
+                },
+                "按钮2":function(){
+                    alert("你点击了按钮2！！");
+                    return true;
+                }
+            }
+        }
+    },
     getInitialState:function(){
       return {
-           hide:true
+           hide:true,
+           type:"default"
       }
     },
     _closeModal:function(){
-        this.setState({
-            hide:true
-        })
+        pubsub.trigger("modal.close");
     },
-    _sureCallback:function(){
-        this._closeModal();
-        this.props.sureCallback.apply(null);
+    _openModal:function(){
+        pubsub.trigger("modal.open");
+    },
+
+    /*
+     * @desc 根据配置项来生成modal框
+     * @param {object} options 配置项对象
+     * @param {string || ReactElement} options.title  //modal框的header部分的title
+     * @param {string || ReactElement} options.content //modal框的header部分
+     * @param {string || ReactElement} options.buttons //modal框的footer部分的按钮组
+     * @param {string || int} options.width //modal框的宽度，默认值为500
+     * @param {string || int} options.top //modal框的距离浏览器顶部的距离，默认值为200
+     *
+     * @author sam liu
+     * @date 2016-03-08
+     */
+    _createModal:function(){
+        var style={
+            width:this.props.width || 500,
+            top:this.props.top || 200
+        };
+        var title,content,buttons;
+
+        if (typeof style.width === 'number' || style.width.indexOf('px') > 0) {
+            style.width = parseInt(style.width);
+            style.marginLeft = 0 - style.width / 2;
+        } else if (style.width.indexOf('%') > 0) {
+            style.marginLeft = (0 - parseInt(style.width) / 2) + '%';
+        }
+
+        switch(this.state.type){
+            case "default":
+                title=this.props.title || "" ;
+                break;
+            case "alert":
+                title=this.props.title || "这是一个sdfalert";
+                break;
+            case "confirm":
+                title=this.props.title || "这是一个asdfsdfconfirm";
+                break;
+            default:
+                break;
+        };
+
+        content=this.props.content;
+
+        buttons=Object.keys(this.props.buttons).map(function(item,index){
+            var func=this.props.buttons[item];
+            var handler=function(){
+                if(func === true){
+                    this._closeModal();
+                }else {
+                   if(func()){
+                       this._closeModal();
+                   }
+                }
+            }.bind(this);
+
+            return (
+                <button key={index} onClick={handler}>{item}</button>
+            )
+        }.bind(this));
+
+
+        return (
+            <div className="modal" style={style}>
+                <div className="modal-header">{title}<span className="pull-right close-btn" onClick={this._closeModal}>&times;</span></div>
+                <div className="modal-body">{content}</div>
+                <div className="modal-footer">
+                    {buttons}
+                </div>
+            </div>
+        )
+
     },
     componentDidMount:function(){
-        var _self=this;
+
+        pubsub.bind("modal.init",function(type,options){
+            console.log("into  modal.init callback") ;
+            console.log("options:",options);
+            this.props=options;
+            this.setState({
+                hide:false,
+                type:type
+            });
+        }.bind(this));
+
         pubsub.bind("modal.open",function(){
             this.setState({
                 hide:false
@@ -30,38 +133,62 @@ var Modal=React.createClass({
         }.bind(this));
 
         pubsub.bind("modal.close",function(){
-            _self.setState({
+            this.setState({
                 hide:true
             });
-        });
+        }.bind(this));
     },
     render:function() {
         var classnames=classNames({
             hide:this.state.hide,
             modalWrapper:true
         });
-        var content=this.props.content;
+
         return (
             <div className={classnames} >
-                <div className="mask" onClick={this._closeModal}></div>
-                <div className="modal">
-                    <div className="modal-header">{this.props.title}<span className="pull-right close-btn" onClick={this._closeModal}>&times;</span></div>
-                    <div className="modal-body">{content}</div>
-                    <div className="modal-footer">
-                        <button className="sure-btn" onClick={this._sureCallback}> 确定 </button>
-                        <button className="cancle-btn" onClick={this._closeModal}> 取消 </button>
-                    </div>
-                </div>
+                <div className="mask" onClick={this._closeModal} ></div>
+                {this._createModal()}
             </div>
         )
     }
 });
 
-
-Modal.open=function(){
-    pubsub.trigger("modal.open");
+//提供给外部使用的接口
+Modal.open=function(options){
+    pubsub.trigger("modal.init","defalut",options);
 };
 Modal.close=function(){
     pubsub.trigger("modal.close");
 };
+Modal.alert=function(msg){
+    console.log("into modal.alert");
+    if(!modalContainer){
+        createContainer();
+    }
+    var options={
+        content:msg,
+        buttons:{
+            "确定":function(){
+                return true;
+            }
+        }
+    };
+    pubsub.trigger("modal.init","alert",options);
+};
+Modal.confirm=function(msg,oncancle,onOk){
+    var options={
+        content:msg,
+        buttons:{
+            "取消":oncancle,
+            "确定":onOk
+        }
+    };
+    pubsub.trigger("modal.init","confirm",options);
+}
+
+function createContainer(){
+    modalContainer=document.createElement("div");
+    document.body.appendChild(modalContainer);
+    ReactDOM.render(<Modal />,modalContainer);
+}
 module.exports=Modal;

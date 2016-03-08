@@ -6,12 +6,12 @@ module.exports={
     //entry:['webpack/hot/dev-server','webpack-dev-server/client?http://localhost:8080',path.resolve(__dirname,"view/index/index.js")],//对应要运行的命令是：npm run dev
     //entry:[path.resolve(__dirname,"view/index/index.js")],//对应要运行的命令是：webpack
     entry:['webpack-dev-server/client?http://localhost:8080',path.resolve(__dirname,"view/index/index.js")],//对应要运行的命令是：webpack-dev-server --inline
-    resolve:{
+   /* resolve:{
         alias:{
             "react":pathToReact,//每当“react”在代码中被引入，它会使用压缩后的react.min.js，而不是使用默认的react.js
             "react-dom":pathToReactDOM
         }
-    },
+    },*/
     output:{
         path:path.resolve(__dirname,"build"),
         filename:"index.bundle.js"
