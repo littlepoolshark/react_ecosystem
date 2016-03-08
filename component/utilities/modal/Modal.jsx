@@ -7,6 +7,7 @@ var $=require("jquery");
 var classNames=require("classnames");
 var pubsub={};
 var modalContainer=null;
+var modalOptions=null;
 var microEvent=require("../../../lib/microevent.js");
 microEvent.mixin(pubsub);//发布者-订阅者模式
 
@@ -56,9 +57,13 @@ var Modal=React.createClass({
      * @date 2016-03-08
      */
     _createModal:function(){
+        console.log("this props from _createModal:",modalOptions);
+        if(!modalOptions){
+            modalOptions=this.props;
+        }
         var style={
-            width:this.props.width || 500,
-            top:this.props.top || 200
+            width:modalOptions.width || 500,
+            top:modalOptions.top || 100
         };
         var title,content,buttons;
 
@@ -71,22 +76,22 @@ var Modal=React.createClass({
 
         switch(this.state.type){
             case "default":
-                title=this.props.title || "" ;
+                title=modalOptions.title || "" ;
                 break;
             case "alert":
-                title=this.props.title || "这是一个sdfalert";
+                title=modalOptions.title || "这是一个sdfalert";
                 break;
             case "confirm":
-                title=this.props.title || "这是一个asdfsdfconfirm";
+                title=modalOptions.title || "这是一个asdfsdfconfirm";
                 break;
             default:
                 break;
         };
 
-        content=this.props.content;
+        content=modalOptions.content;
 
-        buttons=Object.keys(this.props.buttons).map(function(item,index){
-            var func=this.props.buttons[item];
+        buttons=Object.keys(modalOptions.buttons).map(function(item,index){
+            var func=modalOptions.buttons[item];
             var handler=function(){
                 if(func === true){
                     this._closeModal();
@@ -119,7 +124,7 @@ var Modal=React.createClass({
         pubsub.bind("modal.init",function(type,options){
             console.log("into  modal.init callback") ;
             console.log("options:",options);
-            this.props=options;
+            modalOptions=options;
             this.setState({
                 hide:false,
                 type:type
@@ -155,7 +160,7 @@ var Modal=React.createClass({
 
 //提供给外部使用的接口
 Modal.open=function(options){
-    pubsub.trigger("modal.init","defalut",options);
+    pubsub.trigger("modal.init","default",options);
 };
 Modal.close=function(){
     pubsub.trigger("modal.close");
