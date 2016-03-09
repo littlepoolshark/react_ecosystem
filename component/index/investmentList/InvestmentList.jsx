@@ -1,6 +1,6 @@
 require("./InvestmentList.css");
 var React=require("react");
-
+var Lifecycle=require("react-lifecycle");
 var $=require("jquery");
 var CircleProcessBar=require("../../utilities/circleProcessBar/CircleProcessBar.jsx");
 var investmentListAction=require("../../../action/index/investmentListAction.js");
@@ -8,6 +8,7 @@ var investmentListStore=require("../../../store/index/investmentListStore.js");
 
 
 var InvestmentList=React.createClass({
+    mixins:[Lifecycle],
     //getDefaultProps:function(){
     //    console.log("into getDefaultProps");
     //},
@@ -50,13 +51,14 @@ var InvestmentList=React.createClass({
         var li_str="";
         li_str=this.state.items.map(function(item,index){
             return (
-                <li key={item.id} onClick={_self._delete.bind(this,item.id)}>
+                <li key={item.id} >
                     <span>{item.id}</span>
                     <span>{item.title}</span>
                     <span>{item.yearRate}%</span>
                     <span>{item.remainAmount}</span>
                     <span>{item.totalAmount}</span>
                     <CircleProcessBar  />
+                    <button onClick={_self._delete.bind(this,index)}>删除</button>
                 </li>
             )
         });

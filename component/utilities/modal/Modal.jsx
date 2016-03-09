@@ -2,7 +2,6 @@
 require("./Modal.css");
 var React=require("react");
 var ReactDOM=require("react-dom");
-var Lifecycle=require("react-lifecycle");
 var $=require("jquery");
 var classNames=require("classnames");
 var pubsub={};
@@ -12,7 +11,7 @@ var microEvent=require("../../../lib/microevent.js");
 microEvent.mixin(pubsub);//发布者-订阅者模式
 
 var Modal=React.createClass({
-    mixins:[Lifecycle],
+
     getDefaultProps:function(){
         return {
             title:"",
@@ -47,8 +46,8 @@ var Modal=React.createClass({
     /*
      * @desc 根据配置项来生成modal框
      * @param {object} options 配置项对象
-     * @param {string || ReactElement} options.title  //modal框的header部分的title
-     * @param {string || ReactElement} options.content //modal框的header部分
+     * @param {string} options.title  //modal框的header部分的title
+     * @param {string || ReactElement} options.content //modal框的body的内容部分
      * @param {string || ReactElement} options.buttons //modal框的footer部分的按钮组
      * @param {string || int} options.width //modal框的宽度，默认值为500
      * @param {string || int} options.top //modal框的距离浏览器顶部的距离，默认值为200
@@ -76,13 +75,13 @@ var Modal=React.createClass({
 
         switch(this.state.type){
             case "default":
-                title=modalOptions.title || "" ;
+                title=modalOptions.title || "这是一个模态窗口" ;
                 break;
             case "alert":
-                title=modalOptions.title || "这是一个sdfalert";
+                title=modalOptions.title || "这是一个大幅度alert框";
                 break;
             case "confirm":
-                title=modalOptions.title || "这是一个asdfsdfconfirm";
+                title=modalOptions.title || "这是一个confirm框";
                 break;
             default:
                 break;
@@ -91,7 +90,13 @@ var Modal=React.createClass({
         content=modalOptions.content;
 
         buttons=Object.keys(modalOptions.buttons).map(function(item,index){
+
             var func=modalOptions.buttons[item];
+            var buttonClassName=classNames({
+                sureBtn: item === "确定" ? true : false ,
+                cancleBtn: item === "取消" ? true : false ,
+                defaultBtn : item !== "确定" && item !== "取消" ? true : false
+            })
             var handler=function(){
                 if(func === true){
                     this._closeModal();
@@ -103,7 +108,7 @@ var Modal=React.createClass({
             }.bind(this);
 
             return (
-                <button key={index} onClick={handler}>{item}</button>
+                <button key={index} onClick={handler} className={buttonClassName}>{item}</button>
             )
         }.bind(this));
 
@@ -122,8 +127,6 @@ var Modal=React.createClass({
     componentDidMount:function(){
 
         pubsub.bind("modal.init",function(type,options){
-            console.log("into  modal.init callback") ;
-            console.log("options:",options);
             modalOptions=options;
             this.setState({
                 hide:false,
@@ -160,13 +163,15 @@ var Modal=React.createClass({
 
 //提供给外部使用的接口
 Modal.open=function(options){
+    if(!modalContainer){
+        createContainer();
+    }
     pubsub.trigger("modal.init","default",options);
 };
 Modal.close=function(){
     pubsub.trigger("modal.close");
 };
 Modal.alert=function(msg){
-    console.log("into modal.alert");
     if(!modalContainer){
         createContainer();
     }
@@ -181,6 +186,9 @@ Modal.alert=function(msg){
     pubsub.trigger("modal.init","alert",options);
 };
 Modal.confirm=function(msg,oncancle,onOk){
+    if(!modalContainer){
+        createContainer();
+    }
     var options={
         content:msg,
         buttons:{
