@@ -20,7 +20,7 @@ ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContai
 ReactDOM.render(<HelloWorld />,document.getElementById("helloWorldContainer"));
 
 
-//装载获卸载组件
+//装载或者卸载组件
 testButton.addEventListener("click",function(){
 
     if(investmentListContainer.innerHTML){
@@ -44,9 +44,13 @@ openConfirmBtn.addEventListener("click",function(){
 //打开一个模态窗口
 openDefaultBtn.addEventListener("click",function(){
     Modal.open({
-        title:"",
+        title:"投资确认",
         content:(
-            <div><input/>这部分的html结构可以自己定制</div>
+            <div>
+                <div><input/>这部分的html结构可以自己定制</div>
+                <div><input/>这部分的html结构可以自己定制</div>
+                <div><input/>这部分的html结构可以自己定制</div>
+            </div>
         ),
         buttons: {
             "btn1": true,

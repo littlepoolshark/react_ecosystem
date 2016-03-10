@@ -1,6 +1,6 @@
 require("./InvestmentList.css");
 var React=require("react");
-var Lifecycle=require("react-lifecycle");
+
 var $=require("jquery");
 var CircleProcessBar=require("../../utilities/circleProcessBar/CircleProcessBar.jsx");
 var investmentListAction=require("../../../action/index/investmentListAction.js");
@@ -8,7 +8,7 @@ var investmentListStore=require("../../../store/index/investmentListStore.js");
 
 
 var InvestmentList=React.createClass({
-    mixins:[Lifecycle],
+    //mixins:[Lifecycle],
     //getDefaultProps:function(){
     //    console.log("into getDefaultProps");
     //},
@@ -46,7 +46,7 @@ var InvestmentList=React.createClass({
         })
     },
     render:function(){
-        console.log("render");
+        //console.log("render");
         var _self=this;
         var li_str="";
         li_str=this.state.items.map(function(item,index){

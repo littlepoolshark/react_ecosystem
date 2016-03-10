@@ -8,7 +8,7 @@ var pubsub={};
 var modalContainer=null;
 var modalOptions=null;
 var microEvent=require("../../../lib/microevent.js");
-microEvent.mixin(pubsub);//发布者-订阅者模式
+microEvent.mixin(pubsub); //发布者-订阅者模式
 
 var Modal=React.createClass({
 
