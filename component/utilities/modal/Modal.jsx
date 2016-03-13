@@ -1,19 +1,21 @@
-"use strict";
 require("./Modal.css");
 var React=require("react");
 var ReactDOM=require("react-dom");
 var $=require("jquery");
 var classNames=require("classnames");
+var Lifecycle=require("react-lifecycle");
+
 var pubsub={};
 var modalContainer=null;
-var modalOptions=null;
+//var this.props=null;
 var microEvent=require("../../../lib/microevent.js");
 microEvent.mixin(pubsub); //发布者-订阅者模式
 
 var Modal=React.createClass({
-
+    mixins:[Lifecycle],
     getDefaultProps:function(){
         return {
+            type:"default",
             title:"",
             content:(
                 <div>这是一个模态窗口！！</div>
@@ -32,8 +34,7 @@ var Modal=React.createClass({
     },
     getInitialState:function(){
       return {
-           hide:true,
-           type:"default"
+           hide:true
       }
     },
     _closeModal:function(){
@@ -56,13 +57,10 @@ var Modal=React.createClass({
      * @date 2016-03-08
      */
     _createModal:function(){
-        console.log("this props from _createModal:",modalOptions);
-        if(!modalOptions){
-            modalOptions=this.props;
-        }
+
         var style={
-            width:modalOptions.width || 500,
-            top:modalOptions.top || 100
+            width:this.props.width || 500,
+            top:this.props.top || 100
         };
         var title,content,buttons;
 
@@ -73,25 +71,25 @@ var Modal=React.createClass({
             style.marginLeft = (0 - parseInt(style.width) / 2) + '%';
         }
 
-        switch(this.state.type){
+        switch(this.props.type){
             case "default":
-                title=modalOptions.title || "这是一个模态窗口" ;
+                title=this.props.title || "这是一个模态窗口" ;
                 break;
             case "alert":
-                title=modalOptions.title || "这是一个大幅度alert框";
+                title=this.props.title || "这是一个大幅度alert框";
                 break;
             case "confirm":
-                title=modalOptions.title || "这是一个confirm框";
+                title=this.props.title || "这是一个confirm框";
                 break;
             default:
                 break;
         };
 
-        content=modalOptions.content;
+        content=this.props.content;
 
-        buttons=Object.keys(modalOptions.buttons).map(function(item,index){
+        buttons=Object.keys(this.props.buttons).map(function(item,index){
 
-            var func=modalOptions.buttons[item];
+            var func=this.props.buttons[item];
             var buttonClassName=classNames({
                 sureBtn: item === "确定" ? true : false ,
                 cancleBtn: item === "取消" ? true : false ,
@@ -126,12 +124,12 @@ var Modal=React.createClass({
     },
     componentDidMount:function(){
 
-        pubsub.bind("modal.init",function(type,options){
-            modalOptions=options;
+        pubsub.bind("modal.init",function(options){
+
+            ReactDOM.render(<Modal {...options}/>,modalContainer);
             this.setState({
-                hide:false,
-                type:type
-            });
+                hide:false
+            })
         }.bind(this));
 
         pubsub.bind("modal.open",function(){
@@ -147,6 +145,7 @@ var Modal=React.createClass({
         }.bind(this));
     },
     render:function() {
+        console.log("render");
         var classnames=classNames({
             hide:this.state.hide,
             modalWrapper:true
@@ -163,19 +162,18 @@ var Modal=React.createClass({
 
 //提供给外部使用的接口
 Modal.open=function(options){
+    options.type="default";
     if(!modalContainer){
         createContainer();
     }
-    pubsub.trigger("modal.init","default",options);
+    pubsub.trigger("modal.init",options);
 };
 Modal.close=function(){
     pubsub.trigger("modal.close");
 };
 Modal.alert=function(msg){
-    if(!modalContainer){
-        createContainer();
-    }
     var options={
+        type:"alert",
         content:msg,
         buttons:{
             "确定":function(){
@@ -183,20 +181,24 @@ Modal.alert=function(msg){
             }
         }
     };
-    pubsub.trigger("modal.init","alert",options);
-};
-Modal.confirm=function(msg,oncancle,onOk){
     if(!modalContainer){
         createContainer();
     }
+    pubsub.trigger("modal.init",options);
+};
+Modal.confirm=function(msg,oncancle,onOk){
     var options={
+        type:"confirm",
         content:msg,
         buttons:{
             "取消":oncancle,
             "确定":onOk
         }
     };
-    pubsub.trigger("modal.init","confirm",options);
+    if(!modalContainer){
+        createContainer();
+    }
+    pubsub.trigger("modal.init",options);
 }
 
 function createContainer(){
@@ -204,4 +206,5 @@ function createContainer(){
     document.body.appendChild(modalContainer);
     ReactDOM.render(<Modal />,modalContainer);
 }
+
 module.exports=Modal;

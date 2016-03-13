@@ -1,6 +1,6 @@
 var React=require("react");
 var ReactDOM=require("react-dom");
-var Dashboard=require("../../component/index/dashboard/dashboard.jsx");
+var Dashboard=require("../../component/index/dashboard/Dashboard.jsx");
 var CircleProcessBar=require("../../component/utilities/circleProcessBar/CircleProcessBar.jsx");
 var InvestmentList=require("../../component/index/investmentList/InvestmentList.jsx");
 var Modal=require("../../component/utilities/modal/Modal.jsx");
@@ -62,5 +62,9 @@ openDefaultBtn.addEventListener("click",function(){
         }
 
     })
-},false)
+},false);
+
+
+
+
 

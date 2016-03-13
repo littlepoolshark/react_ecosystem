@@ -21,12 +21,12 @@ module.exports={
             {
                 test:/\.jsx$/,
                 loader:"babel-loader",
-                "query":{presets:["react"]},
+                "query":{presets:["react","es2015"]},
             },
             {
                 test:/\.js$/,
                 loader:"babel-loader",
-                "query":{presets:["react"]}
+                "query":{presets:["react","es2015"]}
             },
             {
                 test:/\.css$/,
