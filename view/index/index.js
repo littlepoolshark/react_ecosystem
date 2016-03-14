@@ -14,13 +14,14 @@ var openDefaultBtn=document.getElementById("openDefaultBtn");
 var investmentListContainer=document.getElementById("investmentListContainer");
 //var modalContainer=document.getElementById("modalContainer");
 
-var Alert = require('react-bootstrap/lib/Alert');
+var Button = require('react-bootstrap/lib/Button');
+
 
 /*
 ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
 ReactDOM.render(<CircleProcessBar percentage={100} />,document.getElementById("circleProcessBarContainer"));*/
 ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
-ReactDOM.render(<Alert onDismiss={true}>这是bootstrap的alert组件</Alert>,document.getElementById("helloWorldContainer"));
+ReactDOM.render(<Button bsStyle="success" bsSize="small" onClick={function(){alert("asdfsad")}}>Something</Button>,document.getElementById("helloWorldContainer"));
 
 
 //装载或者卸载组件
