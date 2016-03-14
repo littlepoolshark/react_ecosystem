@@ -57,8 +57,8 @@ var InvestmentList=React.createClass({
                     <span>{item.yearRate}%</span>
                     <span>{item.remainAmount}</span>
                     <span>{item.totalAmount}</span>
-                    <CircleProcessBar  />
-                    <button onClick={_self._delete.bind(this,index)}>删除</button>
+                    <CircleProcessBar  percentage={item.percentage}/>
+                    <button onClick={_self._delete.bind(_self,item.id)}>删除</button>
                 </li>
             )
         });

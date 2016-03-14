@@ -1,3 +1,4 @@
+require("./bootstrap.css");
 var React=require("react");
 var ReactDOM=require("react-dom");
 var Dashboard=require("../../component/index/dashboard/Dashboard.jsx");
@@ -13,11 +14,13 @@ var openDefaultBtn=document.getElementById("openDefaultBtn");
 var investmentListContainer=document.getElementById("investmentListContainer");
 //var modalContainer=document.getElementById("modalContainer");
 
+var Alert = require('react-bootstrap/lib/Alert');
+
 /*
 ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
 ReactDOM.render(<CircleProcessBar percentage={100} />,document.getElementById("circleProcessBarContainer"));*/
 ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
-ReactDOM.render(<HelloWorld />,document.getElementById("helloWorldContainer"));
+ReactDOM.render(<Alert onDismiss={true}>这是bootstrap的alert组件</Alert>,document.getElementById("helloWorldContainer"));
 
 
 //装载或者卸载组件
