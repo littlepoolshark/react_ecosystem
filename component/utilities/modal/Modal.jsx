@@ -125,7 +125,6 @@ var Modal=React.createClass({
     componentDidMount:function(){
 
         pubsub.bind("modal.init",function(options){
-
             ReactDOM.render(<Modal {...options}/>,modalContainer);
             this.setState({
                 hide:false
