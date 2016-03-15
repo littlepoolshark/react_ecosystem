@@ -73,7 +73,7 @@ var Modal=React.createClass({
 
         switch(this.props.type){
             case "default":
-                title=this.props.title || "这是一个模态窗口" ;
+                title=this.props.title || "这是一个模态窗口口" ;
                 break;
             case "alert":
                 title=this.props.title || "这是一个大幅度alert框";

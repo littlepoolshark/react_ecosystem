@@ -1,4 +1,4 @@
-require("./bootstrap.css");
+﻿require("./bootstrap.css");
 var React=require("react");
 var ReactDOM=require("react-dom");
 var Dashboard=require("../../component/index/dashboard/Dashboard.jsx");
@@ -15,13 +15,28 @@ var investmentListContainer=document.getElementById("investmentListContainer");
 //var modalContainer=document.getElementById("modalContainer");
 
 var Button = require('react-bootstrap/lib/Button');
+var Tabs=require('react-bootstrap/lib/Tabs');
+var Tab=require('react-bootstrap/lib/Tab');
+var tabsInstance = (
+    <Tabs defaultActiveKey={2}>
+      <Tab eventKey={1} title="Tab 1">
+          <div>line1</div>
+          <div>line2</div>
+          <div>line3</div>
+          <div>line4</div>
+      </Tab>
+      <Tab eventKey={2} title="Tab 2"><CircleProcessBar percentage={60}/></Tab>
+      <Tab eventKey={3} title="Tab 3">Tab 3 content</Tab>
+    </Tabs>
+  );
+
 
 
 /*
 ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
 ReactDOM.render(<CircleProcessBar percentage={100} />,document.getElementById("circleProcessBarContainer"));*/
 ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
-ReactDOM.render(<Button bsStyle="success" bsSize="small" onClick={function(){alert("asdfsad")}}>Something</Button>,document.getElementById("helloWorldContainer"));
+ReactDOM.render(tabsInstance,document.getElementById("helloWorldContainer"));
 
 
 //装载或者卸载组件
@@ -37,12 +52,12 @@ testButton.addEventListener("click",function(){
 
 //打开一个alert框
 openAlertBtn.addEventListener("click",function(){
-    Modal.alert("this text from alert method");
+    Modal.alert("atom编辑器即使酷帅！fasd");
 },false)
 
 //打开一个confirm框
 openConfirmBtn.addEventListener("click",function(){
-    Modal.confirm("this text from confirm method",function(){alert("你点击了取消按钮")},function(){alert("你点击了确定按钮")});
+    Modal.confirm("你确定要删除这条记录嘛？",function(){alert("你点击了取消按钮");return true;},function(){alert("你点击了确定按钮");return true;});
 },false)
 
 //打开一个模态窗口
@@ -67,8 +82,3 @@ openDefaultBtn.addEventListener("click",function(){
 
     })
 },false);
-
-
-
-
-
