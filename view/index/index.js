@@ -6,12 +6,14 @@ var CircleProcessBar=require("../../component/utilities/circleProcessBar/CircleP
 var InvestmentList=require("../../component/index/investmentList/InvestmentList.jsx");
 var Modal=require("../../component/utilities/modal/Modal.jsx");
 var HelloWorld=require("../../component/index/helloWorld/HelloWorld.jsx");
+var FilterableProductTable=require("../../component/index/thinkInReact/FilterableProductTable.jsx")
 
 var testButton=document.getElementById("test");
 var openAlertBtn=document.getElementById("openAlertBtn");
 var openConfirmBtn=document.getElementById("openConfirmBtn");
 var openDefaultBtn=document.getElementById("openDefaultBtn");
 var investmentListContainer=document.getElementById("investmentListContainer");
+var filterableProductTableContainer=document.getElementById("filterableProductTableContainer");
 //var modalContainer=document.getElementById("modalContainer");
 
 var Button = require('react-bootstrap/lib/Button');
@@ -30,13 +32,23 @@ var tabsInstance = (
     </Tabs>
   );
 
-
-
+var PRODUCTS = [
+  {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
+  {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
+  {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
+  {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
+  {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
+  {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'},
+  {category: 'Electronics', price: '$599.99', stocked: true, name: 'galaxy s4'},
+  {category: '书籍', price: '$6.99', stocked: true, name: '利用react构建现代应用 '}
+];
 /*
 ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
 ReactDOM.render(<CircleProcessBar percentage={100} />,document.getElementById("circleProcessBarContainer"));*/
 ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
 ReactDOM.render(tabsInstance,document.getElementById("helloWorldContainer"));
+ReactDOM.render(tabsInstance,document.getElementById("helloWorldContainer"));
+ReactDOM.render(<FilterableProductTable products={PRODUCTS} />,filterableProductTableContainer);
 
 
 //装载或者卸载组件
