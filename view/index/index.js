@@ -40,7 +40,7 @@ var PRODUCTS = [
   {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
   {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'},
   {category: 'Electronics', price: '$599.99', stocked: true, name: 'galaxy s4'},
-  {category: '书籍', price: '$6.99', stocked: true, name: '利用react构建现代应用 '}
+  {category: '书籍', price: '$6.99', stocked: true, name: '你不知道的javascript'}
 ];
 /*
 ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
@@ -64,7 +64,7 @@ testButton.addEventListener("click",function(){
 
 //打开一个alert框
 openAlertBtn.addEventListener("click",function(){
-    Modal.alert("atom编辑器即使酷帅！fasd");
+    Modal.alert("atom编辑器即使酷帅！");
 },false)
 
 //打开一个confirm框

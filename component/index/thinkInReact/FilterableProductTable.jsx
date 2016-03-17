@@ -60,12 +60,12 @@ var ProductTabel=React.createClass({
 //搜索栏
 var SearchBar=React.createClass({
   handleChange:function(){
-    this.props.onUserInput(this.refs.filterTextInput.value,this.refs.inStockOnlyInput.checked);
+    this.props.onUserInput(this.refs.searchInput.value,this.refs.inStockOnlyInput.checked);
   },
   render:function(){
     return (
       <form>
-        <input type="text" placeholder="请输入关键字" value={this.props.filterText} ref="filterTextInput" onChange={this.handleChange}/>
+        <input type="text" placeholder="请输入关键字" value={this.props.filterText} ref="searchInput" onChange={this.handleChange}/>
         <p>
           <input type="checkbox" checked={this.props.inStockOnly} ref="inStockOnlyInput" onChange={this.handleChange}/>
           {" "}
@@ -75,6 +75,7 @@ var SearchBar=React.createClass({
     )
   }
 });
+
 
 //整个应用
 var FilterableProductTable=React.createClass({
