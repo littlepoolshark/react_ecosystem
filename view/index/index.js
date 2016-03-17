@@ -6,7 +6,8 @@ var CircleProcessBar=require("../../component/utilities/circleProcessBar/CircleP
 var InvestmentList=require("../../component/index/investmentList/InvestmentList.jsx");
 var Modal=require("../../component/utilities/modal/Modal.jsx");
 var HelloWorld=require("../../component/index/helloWorld/HelloWorld.jsx");
-var FilterableProductTable=require("../../component/index/thinkInReact/FilterableProductTable.jsx")
+var FilterableProductTable=require("../../component/index/thinkInReact/FilterableProductTable.jsx");
+var Tab=require("../../component/utilities/tab/Tab.jsx");
 
 var testButton=document.getElementById("test");
 var openAlertBtn=document.getElementById("openAlertBtn");
@@ -16,8 +17,25 @@ var investmentListContainer=document.getElementById("investmentListContainer");
 var filterableProductTableContainer=document.getElementById("filterableProductTableContainer");
 //var modalContainer=document.getElementById("modalContainer");
 
+
+var PRODUCTS = [
+    {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
+    {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
+    {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
+    {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
+    {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
+    {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'},
+    {category: 'Electronics', price: '$599.99', stocked: true, name: 'galaxy s4'},
+    {category: '书籍', price: '$6.99', stocked: true, name: '你不知道的javascript'}
+];
+var titles=[
+    {title:"tabHeader 1"},
+    {title:"tabHeader 2"},
+    {title:"tabHeader 3"}
+]
+
 var Button = require('react-bootstrap/lib/Button');
-var Tabs=require('react-bootstrap/lib/Tabs');
+/*var Tabs=require('react-bootstrap/lib/Tabs');
 var Tab=require('react-bootstrap/lib/Tab');
 var tabsInstance = (
     <Tabs defaultActiveKey={2}>
@@ -31,23 +49,20 @@ var tabsInstance = (
       <Tab eventKey={3} title="Tab 3">Tab 3 content</Tab>
     </Tabs>
   );
+ */
+var tabInstance=(
+    <Tab titles={titles}>
+        <div>tabPanel1</div>
+        <div>tabPanel2</div>
+        <div>tabPanel3</div>
+    </Tab>
+);
 
-var PRODUCTS = [
-  {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
-  {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
-  {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
-  {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
-  {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
-  {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'},
-  {category: 'Electronics', price: '$599.99', stocked: true, name: 'galaxy s4'},
-  {category: '书籍', price: '$6.99', stocked: true, name: '你不知道的javascript'}
-];
 /*
 ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
 ReactDOM.render(<CircleProcessBar percentage={100} />,document.getElementById("circleProcessBarContainer"));*/
 ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
-ReactDOM.render(tabsInstance,document.getElementById("helloWorldContainer"));
-ReactDOM.render(tabsInstance,document.getElementById("helloWorldContainer"));
+ReactDOM.render(tabInstance,document.getElementById("helloWorldContainer"));
 ReactDOM.render(<FilterableProductTable products={PRODUCTS} />,filterableProductTableContainer);
 
 
@@ -64,7 +79,7 @@ testButton.addEventListener("click",function(){
 
 //打开一个alert框
 openAlertBtn.addEventListener("click",function(){
-    Modal.alert("atom编辑器即使酷帅！");
+    Modal.alert("atom编辑器工商法规帝国时代");
 },false)
 
 //打开一个confirm框
