@@ -52,9 +52,9 @@ var tabsInstance = (
  */
 var tabInstance=(
     <Tab titles={titles}>
-        <div>tabPanel1</div>
-        <div>tabPanel2</div>
-        <div>tabPanel3</div>
+        <div style={{color:'red'}}>tabPanel1</div>
+        <div style={{color:'deepskyblue'}}>tabPanel2</div>
+        <div style={{color:'orange'}}>tabPanel3</div>
     </Tab>
 );
 

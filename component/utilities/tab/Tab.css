@@ -10,12 +10,11 @@ ul.tab-header {
 ul.tab-header li {
     float:left;
     margin-right:20px;
-    padding:20px;
-    border:1px solid #ccc;
+    padding:7px 0;
     cursor:pointer;
 }
 ul.tab-header li.active {
-    border-bottom:1px solid orange;
+    border-bottom:2px solid orange;
 }
 .tabPanelContainer>div {
     display:none;
