@@ -30,7 +30,7 @@ var PRODUCTS = [
 ];
 var titles=[
     {title:"tabHeader 1"},
-    {title:"tabHeader 2"},
+    {title:"tabHeader 2",handleClick:function(){return false;}},
     {title:"tabHeader 3"}
 ]
 
@@ -52,8 +52,8 @@ var tabsInstance = (
  */
 var tabInstance=(
     <Tab titles={titles}>
-        <div style={{color:'red'}}>tabPanel1</div>
-        <div style={{color:'deepskyblue'}}>tabPanel2</div>
+        <FilterableProductTable products={PRODUCTS} />
+        <InvestmentList />
         <div style={{color:'orange'}}>tabPanel3</div>
     </Tab>
 );
@@ -61,9 +61,9 @@ var tabInstance=(
 /*
 ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
 ReactDOM.render(<CircleProcessBar percentage={100} />,document.getElementById("circleProcessBarContainer"));*/
-ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
+//ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
 ReactDOM.render(tabInstance,document.getElementById("helloWorldContainer"));
-ReactDOM.render(<FilterableProductTable products={PRODUCTS} />,filterableProductTableContainer);
+//ReactDOM.render(<FilterableProductTable products={PRODUCTS} />,filterableProductTableContainer);
 
 
 //装载或者卸载组件
