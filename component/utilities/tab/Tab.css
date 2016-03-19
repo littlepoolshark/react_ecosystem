@@ -2,26 +2,26 @@
     width:700px;
     margin:20px auto;
 }
-ul.tab-header {
+ul.tab-header-container {
     margin:0 0 10px;
     padding:0;
     list-style:none;
 }
-ul.tab-header li {
+ul.tab-header-container li {
     float:left;
     margin-right:20px;
     padding:7px 0;
     cursor:pointer;
 }
-ul.tab-header li.active {
+ul.tab-header-container li.active {
     border-bottom:2px solid orange;
 }
-.tabPanelContainer>div {
+.tab-panel-container>div {
     display:none;
     width:100%;
     height:500px;
     border:1px solid #ccc;
 }
-.tabPanelContainer>div.active {
+.tab-panel-container>div.active {
     display:block;
 }

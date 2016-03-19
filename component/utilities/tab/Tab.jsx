@@ -4,23 +4,13 @@ var classNames=require("classnames");
 
 var TabPanel=React.createClass({
     render:function(){
-        var tabPanels=this.props.tabPanels.map(function(item,index){
-            if(index+1 === this.props.currIndex){
-                return (
-                    <div className="active">
-                        {item}
-                    </div>)
-            }else {
-                return (
-                    <div >
-                        {item}
-                    </div>)
-            }
-        }.bind(this));
+        var activeClass=classNames({
+            active:this.props.activeOrNot
+
+        });
+        var totalClasses=activeClass ? activeClass+" tab-panel" : "tab-panel" ;//去掉空格
         return (
-            <div className="tabPanelContainer">
-                {tabPanels}
-            </div>
+            <div className={totalClasses}>{this.props.children}</div>
         )
     }
 });
@@ -44,20 +34,13 @@ var TabHeader=React.createClass({
 
     },
     render:function(){
-        var tabHeaders=this.props.titles.map(function(item,index){
-            var activeOrNot=classNames({
-                active:index+1 === this.props.currIndex
-            });
-            return (
-                <li key={index+1}  className={activeOrNot} onClick={this._toggleTab.bind(this,index+1,item.handleClick)} >{item.title}</li>
-            )
 
-        }.bind(this));
-
+        var activeClass=classNames({
+            active:this.props.activeOrNot
+        });
+        var totalClasses=activeClass ? activeClass+" tab-header" : "tab-header"  ;
         return (
-            <ul className="tab-header clearfix">
-                {tabHeaders}
-            </ul>
+            <li className={totalClasses} onClick={this._toggleTab.bind(this,this.props.index,this.props.beforeToggle)} >{this.props.title}</li>
         )
     }
 });
@@ -82,18 +65,38 @@ var Tab=React.createClass({
         })
     },
     render:function(){
+        var tabHeaders=this.props.titles.map(function(item,index){
+            return (
+                <TabHeader
+                    key={index+1}
+                    activeOrNot={this.state.currIndex === index+1}
+                    title={item.title}
+                    handleToggleTab={this._handleToggleTab}
+                    index={index+1}
+                    beforeToggle={item.beforeToggle}
+                    />
+            )
+        }.bind(this));
+
+        var tabPanels=this.props.children.map(function(item,index){
+            return (
+                <TabPanel
+                    key={index+1}
+                    activeOrNot={this.state.currIndex === index+1}
+                    >
+                    {item}
+                </TabPanel>
+            )
+        }.bind(this));
         return (
             <div className="tab-container">
                 {/*测试，这是jsx语法的注释*/}
-                <TabHeader
-                    titles={this.props.titles}
-                    currIndex={this.state.currIndex}
-                    handleToggleTab={this._handleToggleTab}
-                />
-                <TabPanel
-                    tabPanels={this.props.children}
-                    currIndex={this.state.currIndex}
-                />
+                <ul className="tab-header-container clearfix">
+                    {tabHeaders}
+                </ul>
+               <div className="tab-panel-container">
+                   {tabPanels}
+               </div>
             </div>
         )
     }

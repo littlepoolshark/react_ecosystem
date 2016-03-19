@@ -30,7 +30,7 @@ var PRODUCTS = [
 ];
 var titles=[
     {title:"tabHeader 1"},
-    {title:"tabHeader 2",handleClick:function(){return false;}},
+    {title:"tabHeader 2",beforeToggle:function(){return true;}},
     {title:"tabHeader 3"}
 ]
 
