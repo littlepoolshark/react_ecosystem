@@ -1,0 +1,55 @@
+.banner-container {
+    position:relative;
+    height:270px;
+}
+.banner-container .banner-item {
+    position:absolute;
+    left:0;
+    top:0;
+    display:block;
+    width:100%;
+    opacity:1;
+    z-index:1;
+    transition:all 1s ease-in;
+}
+.banner-container .banner-item.in {
+    opacity:1;
+    z-index:2;
+}
+.banner-container .banner-item.out {
+    z-index:1;
+    opacity:0;
+}
+.banner-container .carousel-nav {
+    position:absolute;
+    top:175px;
+    z-index:3;
+    width:100px;
+    text-align:center;
+}
+.banner-container .carousel-nav.left {
+    left:100px;
+}
+.banner-container .carousel-nav.right {
+    right:100px;
+}
+.banner-container .carousel-nav.bottom {
+    width:auto;
+    height:20px;
+    padding:0;
+    top:230px;
+    left:50%;
+    list-style:none;
+}
+.banner-container .carousel-nav.bottom>li {
+    float:left;
+    width:20px;
+    height:20px;
+    margin-right:20px;
+    background-color:#fff;
+    cursor:pointer;
+}
+.banner-container .carousel-nav.bottom>li.active {
+    background-color:deepskyblue;
+}
+

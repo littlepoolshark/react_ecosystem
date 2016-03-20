@@ -8,6 +8,8 @@ var Modal=require("../../component/utilities/modal/Modal.jsx");
 var HelloWorld=require("../../component/index/helloWorld/HelloWorld.jsx");
 var FilterableProductTable=require("../../component/index/thinkInReact/FilterableProductTable.jsx");
 var Tab=require("../../component/utilities/tab/Tab.jsx");
+var Carousel=require("../../component/utilities/carousel/Carousel.jsx");
+
 
 var testButton=document.getElementById("test");
 var openAlertBtn=document.getElementById("openAlertBtn");
@@ -15,7 +17,7 @@ var openConfirmBtn=document.getElementById("openConfirmBtn");
 var openDefaultBtn=document.getElementById("openDefaultBtn");
 var investmentListContainer=document.getElementById("investmentListContainer");
 var filterableProductTableContainer=document.getElementById("filterableProductTableContainer");
-//var modalContainer=document.getElementById("modalContainer");
+var carouselContainer=document.getElementById("carouselContainer");
 
 
 var PRODUCTS = [
@@ -32,24 +34,13 @@ var titles=[
     {title:"tabHeader 1"},
     {title:"tabHeader 2",beforeToggle:function(){return true;}},
     {title:"tabHeader 3"}
-]
+];
+var bannerList=[
+    {url:"/banner1.jpg",index:1},
+    {url:"/banner2.jpg",index:2},
+    {url:"/banner3.jpg",index:3}
+];
 
-var Button = require('react-bootstrap/lib/Button');
-/*var Tabs=require('react-bootstrap/lib/Tabs');
-var Tab=require('react-bootstrap/lib/Tab');
-var tabsInstance = (
-    <Tabs defaultActiveKey={2}>
-      <Tab eventKey={1} title="Tab 1">
-          <div>line1</div>
-          <div>line2</div>
-          <div>line3</div>
-          <div>line4</div>
-      </Tab>
-      <Tab eventKey={2} title="Tab 2"><CircleProcessBar percentage={60}/></Tab>
-      <Tab eventKey={3} title="Tab 3">Tab 3 content</Tab>
-    </Tabs>
-  );
- */
 var tabInstance=(
     <Tab titles={titles}>
         <FilterableProductTable products={PRODUCTS} />
@@ -58,12 +49,9 @@ var tabInstance=(
     </Tab>
 );
 
-/*
-ReactDOM.render(<Dashboard/>,document.getElementById("dashboardContainer"));
-ReactDOM.render(<CircleProcessBar percentage={100} />,document.getElementById("circleProcessBarContainer"));*/
-//ReactDOM.render(<InvestmentList />,document.getElementById("investmentListContainer"));
+
 ReactDOM.render(tabInstance,document.getElementById("helloWorldContainer"));
-//ReactDOM.render(<FilterableProductTable products={PRODUCTS} />,filterableProductTableContainer);
+ReactDOM.render(<Carousel bannerList={bannerList}/>,document.getElementById("carouselContainer"));
 
 
 //装载或者卸载组件
