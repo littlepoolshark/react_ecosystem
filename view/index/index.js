@@ -36,9 +36,9 @@ var titles=[
     {title:"tabHeader 3"}
 ];
 var bannerList=[
-    {url:"/banner1.jpg",index:1},
-    {url:"/banner2.jpg",index:2},
-    {url:"/banner3.jpg",index:3}
+    {url:"../../static/img/banner1.jpg",index:1},
+    {url:"../../static/img/banner2.jpg",index:2},
+    {url:"../../static/img/banner3.jpg",index:3}
 ];
 
 var tabInstance=(

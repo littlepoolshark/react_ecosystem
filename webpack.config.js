@@ -45,6 +45,6 @@ module.exports={
     },
     watch: true,
     devServer:{
-        contentBase:'view/index'
+        contentBase:'./'
     }
 }
