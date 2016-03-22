@@ -1,0 +1,22 @@
+.nt-dashboard-wrapper {
+    height:73px;
+    background-color:#fff;
+}
+.nt-dashboard-wrapper .nt-dashboard {
+    width:1200px;
+    margin:0 auto;
+    height:73px;
+    line-height:70px;
+}
+.nt-dashboard .nt-dashboard-title {
+    font-size:20px;
+    color:#666;
+}
+.nt-dashboard .nt-dashboard-digit {
+    font-size:30px;
+    color:#ea7e0b;
+}
+.nt-dashboard .nt-dashboard-unit {
+    font-size:14px;
+    color:#999;
+}

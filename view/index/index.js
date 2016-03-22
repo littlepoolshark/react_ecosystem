@@ -18,6 +18,7 @@ var openDefaultBtn=document.getElementById("openDefaultBtn");
 var investmentListContainer=document.getElementById("investmentListContainer");
 var filterableProductTableContainer=document.getElementById("filterableProductTableContainer");
 var carouselContainer=document.getElementById("carouselContainer");
+var dashboardContainer=document.getElementById("dashboardContainer");
 
 
 var PRODUCTS = [
@@ -52,6 +53,8 @@ var tabInstance=(
 
 ReactDOM.render(tabInstance,document.getElementById("helloWorldContainer"));
 ReactDOM.render(<Carousel bannerList={bannerList}/>,document.getElementById("carouselContainer"));
+ReactDOM.render(<Dashboard transactionAmount={8888888} registeredUserAmount={7777777} />,dashboardContainer);
+
 
 
 //装载或者卸载组件
