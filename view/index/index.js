@@ -1,4 +1,4 @@
-﻿require("./bootstrap.css");
+﻿require("../../static/css/bootstrap.css");
 var React=require("react");
 var ReactDOM=require("react-dom");
 var Dashboard=require("../../component/index/dashboard/Dashboard.jsx");

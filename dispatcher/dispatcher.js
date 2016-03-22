@@ -7,7 +7,7 @@ appDispatcher.register( function( payload ) {
     switch( payload.actionName ) {
         case 'investmentList.getData':
             $.ajax({
-                url:"/view/index/mock/investmentList.json",
+                url:"/mock/investmentList.json",
                 type:"get",
                 dataType:"json",
                 success:function(rs){
