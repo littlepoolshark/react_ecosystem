@@ -1,4 +1,5 @@
-﻿require("../../static/css/bootstrap.css");
+﻿require("./index.css");
+require("../../static/css/bootstrap.css");
 var React=require("react");
 var ReactDOM=require("react-dom");
 var Dashboard=require("../../component/index/dashboard/Dashboard.jsx");
@@ -41,62 +42,16 @@ var bannerList=[
     {url:"../../static/img/banner2.jpg",index:2},
     {url:"../../static/img/banner3.jpg",index:3}
 ];
-
-var tabInstance=(
-    <Tab titles={titles}>
-        <FilterableProductTable products={PRODUCTS} />
-        <InvestmentList />
-        <div style={{color:'orange'}}>tabPanel3</div>
-    </Tab>
-);
+var investmentListHeaders=["项目名称","年化收益率","项目期限","项目金额","投资进度",""];
 
 
-ReactDOM.render(tabInstance,document.getElementById("helloWorldContainer"));
+
 ReactDOM.render(<Carousel bannerList={bannerList}/>,document.getElementById("carouselContainer"));
-ReactDOM.render(<Dashboard transactionAmount={8888888} registeredUserAmount={7777777} />,dashboardContainer);
+ReactDOM.render(<Dashboard transactionAmount={16788888888} registeredUserAmount={77734567} />,dashboardContainer);
+ReactDOM.render(<InvestmentList titles={investmentListHeaders}  />,investmentListContainer);
 
 
 
-//装载或者卸载组件
-testButton.addEventListener("click",function(){
 
-    if(investmentListContainer.innerHTML){
-        ReactDOM.unmountComponentAtNode(investmentListContainer);
-    }else {
-        ReactDOM.render(< InvestmentList/>,investmentListContainer);
-    }
 
-},false)
 
-//打开一个alert框
-openAlertBtn.addEventListener("click",function(){
-    Modal.alert("atom编辑器工商法规帝国时代");
-},false)
-
-//打开一个confirm框
-openConfirmBtn.addEventListener("click",function(){
-    Modal.confirm("你确定要删除这条记录嘛？",function(){alert("你点击了取消按钮");return true;},function(){alert("你点击了确定按钮");return true;});
-},false)
-
-//打开一个模态窗口
-openDefaultBtn.addEventListener("click",function(){
-    Modal.open({
-        title:"投资确认",
-        content:(
-            <div>
-                <div><input/>这部分的html结构可以自己定制</div>
-                <div><input/>这部分的html结构可以自己定制</div>
-                <div><input/>这部分的html结构可以自己定制</div>
-            </div>
-        ),
-        buttons: {
-            "btn1": true,
-            "btn2": true,
-            "btn3": function () {
-                alert("你点击了btn3");
-                return true;
-            }
-        }
-
-    })
-},false);

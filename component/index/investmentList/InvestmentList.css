@@ -1,15 +1,14 @@
-ul.investmentList {
-  width:530px;
-  padding:0;
-  margin:50px auto;
-  list-style:none;
+.investmentList-bar-left {
+  width:192px;
 }
-ul.investmentList li {
-    margin-bottom:20px;
+.investmentList-bar-right {
+  width:1008px;
 }
-ul.investmentList li>span + span {
-  margin-left:30px;
+.investmentList-bar-right table {
+  width:100%;
 }
-ul.investmentList li button {
-  margin-left:20px;
+.investmentList-bar-right table th {
+  line-height: 50px;
+  font-size: 14px;
+  color: #999;
 }

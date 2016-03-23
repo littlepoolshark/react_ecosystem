@@ -6,37 +6,36 @@ var CircleProcessBar=require("../../utilities/circleProcessBar/CircleProcessBar.
 var investmentListAction=require("../../../action/index/investmentListAction.js");
 var investmentListStore=require("../../../store/index/investmentListStore.js");
 
+var InvestmentListHeader=React.createClass({
+
+    render:function(){
+        var titles=this.props.titles.map(function(item,indexe){
+                return(
+                    <th>{item}</th>
+                )
+        });
+        return (
+            <thead>
+                <tr>
+                    {titles}
+                </tr>
+            </thead>
+        )
+    }
+});
+
 
 var InvestmentList=React.createClass({
-    //mixins:[Lifecycle],
-    //getDefaultProps:function(){
-    //    console.log("into getDefaultProps");
-    //},
+
     getInitialState:function(){
         return {
           items:[]
         }
     },
-    //componentWillMount:function(){
-    //    console.log("into componentWillMount");
-    //},
     componentDidMount:function(){
         investmentListAction.getData();
         investmentListStore.bind("change",this._onChange);
     },
-    //componentWillReceiveProps:function(){
-    //    console.log("into componentWillReceiveProps");
-    //},
-    //shouldComponentUpdate:function(){
-    //    console.log("into shouldComponentUpdate");
-    //    return true;
-    //},
-    //componentWillUpdate:function(){
-    //    console.log("into componentWillUpdate");
-    //},
-    //componentDidUpdate:function(){
-    //    console.log("into componentDidUpdate");
-    //},
     _delete:function(id){
         investmentListAction.deleteItem(id);
     },
@@ -46,24 +45,29 @@ var InvestmentList=React.createClass({
         })
     },
     render:function(){
-        //console.log("render");
+
         var _self=this;
-        var li_str="";
-        li_str=this.state.items.map(function(item,index){
+        var trs="";
+        trs=this.state.items.map(function(item,index){
             return (
-                <li key={item.id} >
-                    <span>{item.id}</span>
-                    <span>{item.title}</span>
-                    <span>{item.yearRate}%</span>
-                    <span>{item.remainAmount}</span>
-                    <span>{item.totalAmount}</span>
-                    <CircleProcessBar  percentage={item.percentage}/>
-                    <button onClick={_self._delete.bind(_self,item.id)}>删除</button>
-                </li>
+                <tr key={item.id} >
+                    <td>{item.id}</td>
+                    <td>{item.title}</td>
+                    <td>{item.yearRate}%</td>
+                    <td>{item.remainAmount}</td>
+                    <td>{item.totalAmount}</td>
+                    <td><CircleProcessBar  percentage={item.percentage}/></td>
+                    <td><button onClick={_self._delete.bind(_self,item.id)}>删除</button></td>
+                </tr>
             )
         });
         return (
-            <ul className="investmentList">{li_str}</ul>
+            <table>
+                <InvestmentListHeader titles={this.props.titles}/>
+                <tbody>
+                {trs}
+                </tbody>
+            </table>
         )
     }
 });
