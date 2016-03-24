@@ -51,13 +51,12 @@ var InvestmentList=React.createClass({
         trs=this.state.items.map(function(item,index){
             return (
                 <tr key={item.id} >
-                    <td>{item.id}</td>
                     <td>{item.title}</td>
-                    <td>{item.yearRate}%</td>
+                    <td className="investment-yearRate">{item.yearRate}%</td>
                     <td>{item.remainAmount}</td>
                     <td>{item.totalAmount}</td>
                     <td><CircleProcessBar  percentage={item.percentage}/></td>
-                    <td><button onClick={_self._delete.bind(_self,item.id)}>删除</button></td>
+                    <td><button className="nt-button default sm">立即抢购</button></td>
                 </tr>
             )
         });
