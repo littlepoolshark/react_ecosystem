@@ -2,6 +2,8 @@ require("./InvestmentList.css");
 var React=require("react");
 
 var $=require("jquery");
+var classNames=require("classnames");
+var moment=require("moment");
 var CircleProcessBar=require("../../utilities/circleProcessBar/CircleProcessBar.jsx");
 var investmentListAction=require("../../../action/index/investmentListAction.js");
 var investmentListStore=require("../../../store/index/investmentListStore.js");
@@ -24,6 +26,34 @@ var InvestmentListHeader=React.createClass({
     }
 });
 
+var InvestmentButton=React.createClass({
+    render:function(){
+        var buttonClasses="nt-button sm",
+            buttonText="立即抢购";
+        switch(this.props.status){
+            case "bidding":
+                buttonClasses += " default";
+                buttonText="立即抢购";
+                break;
+            case "full":
+            case "deal":
+            case "releasing":
+                buttonClasses += " disabled";
+                buttonText="已售罄";
+                break;
+            case "prepublish":
+                buttonClasses += " disabled";
+                buttonText="预发布" + moment(this.props.publishTime).format("HH:mm");
+                break;
+            default:
+                break;
+        }
+
+        return (
+            <button className={buttonClasses}>{buttonText}</button>
+        )
+    }
+});
 
 var InvestmentList=React.createClass({
 
@@ -56,7 +86,7 @@ var InvestmentList=React.createClass({
                     <td>{item.remainAmount}</td>
                     <td>{item.totalAmount}</td>
                     <td><CircleProcessBar  percentage={item.percentage}/></td>
-                    <td><button className="nt-button default sm">立即抢购</button></td>
+                    <td><InvestmentButton status={item.status} publishTime={item.publishTime && item.publishTime}/></td>
                 </tr>
             )
         });

@@ -5,28 +5,29 @@
       "yearRate":0.115,
       "remainAmount":100000,
       "totalAmount":1000000,
-      "statu":"binding"
+      "status":"full"
     },
     {
       "title":"160222-02",
       "yearRate":0.115,
       "remainAmount":200000,
       "totalAmount":1000000,
-      "statu":"binding"
+      "status":"bidding"
     },
     {
       "title":"160222-03",
       "yearRate":0.115,
       "remainAmount":300000,
       "totalAmount":1000000,
-      "statu":"binding"
+      "status":"bidding"
     },
     {
       "title":"160222-04",
       "yearRate":0.115,
       "remainAmount":400000,
       "totalAmount":1000000,
-      "statu":"binding"
+      "status":"prepublish",
+      "publishTime":1458883397128
     }
     ]
 }
