@@ -1,0 +1,23 @@
+.nt-button {
+    height:35px;
+    line-height:35px;
+    text-align:center;
+    border-radius:4px;
+    background-color:transparent;
+    outline:none;
+    border:none;
+}
+.nt-button.default {
+    background-color:#c37e17;
+    color:#fff;
+}
+.nt-button.disabled {
+    background-color:#ccc;
+    color:#fff;
+}
+.nt-button.sm {
+    width:110px;
+}
+.nt-button.lg {
+    width:235px;
+}

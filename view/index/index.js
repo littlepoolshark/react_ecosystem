@@ -1,10 +1,12 @@
 ﻿require("./index.css");
 require("../../static/css/bootstrap.css");
+require("../../static/css/common.css");
 var React=require("react");
 var ReactDOM=require("react-dom");
 var Dashboard=require("../../component/index/dashboard/Dashboard.jsx");
 var CircleProcessBar=require("../../component/utilities/circleProcessBar/CircleProcessBar.jsx");
 var InvestmentList=require("../../component/index/investmentList/InvestmentList.jsx");
+var EarnSet=require("../../component/index/earnSet/EarnSet.jsx");
 var Modal=require("../../component/utilities/modal/Modal.jsx");
 var HelloWorld=require("../../component/index/helloWorld/HelloWorld.jsx");
 var FilterableProductTable=require("../../component/index/thinkInReact/FilterableProductTable.jsx");
@@ -16,6 +18,7 @@ var testButton=document.getElementById("test");
 var openAlertBtn=document.getElementById("openAlertBtn");
 var openConfirmBtn=document.getElementById("openConfirmBtn");
 var openDefaultBtn=document.getElementById("openDefaultBtn");
+var earnSetContainer=document.getElementById("earnSetContainer");
 var investmentListContainer=document.getElementById("investmentListContainer");
 var filterableProductTableContainer=document.getElementById("filterableProductTableContainer");
 var carouselContainer=document.getElementById("carouselContainer");
@@ -42,12 +45,18 @@ var bannerList=[
     {url:"../../static/img/banner2.jpg",index:2},
     {url:"../../static/img/banner3.jpg",index:3}
 ];
+var earnSetItems=[
+    {type:"ttz",yearRate:"0.08",status:"already_publish"},
+    {type:"yyz",yearRate:"0.095",status:"already_full"},
+    {type:"jjz",yearRate:"0.105",status:"success"}
+    ];
 var investmentListHeaders=["项目名称","年化收益率","项目期限","项目金额","投资进度",""];
 
 
 
 ReactDOM.render(<Carousel bannerList={bannerList}/>,document.getElementById("carouselContainer"));
 ReactDOM.render(<Dashboard transactionAmount={16788888888} registeredUserAmount={77734567} />,dashboardContainer);
+ReactDOM.render(<EarnSet earnSetItems={earnSetItems}  />,earnSetContainer);
 ReactDOM.render(<InvestmentList titles={investmentListHeaders}  />,investmentListContainer);
 
 
