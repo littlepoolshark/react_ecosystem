@@ -1,0 +1,42 @@
+.earnSet-bar-left {
+    width:192px;
+    height:287px;
+}
+.earnSet-bar-right {
+    width:1008px;
+    height:287px;
+}
+.earnSet-bar-right .earnSet-header .title {
+    height: 50px;
+    margin: 0;
+    line-height: 50px;
+    font-size: 24px;
+    background-color:#f4e8d5;
+}
+.earnSet-bar-right .earnSet-header .subtitle {
+    margin-left: 10px;
+    color: #666;
+    font-size: 14px;
+}
+.earnSet-bar-right .earnSet-body {
+    padding-top:30px;
+}
+.earnSet-bar-right .earnSet-body .yearRate {
+    height: 50px;
+    margin-top: 25px;
+    line-height: 50px;
+    font-size: 50px;
+    color: #c27e19;
+    font-weight:normal;
+}
+.earnSet-bar-right .earnSet-body .unit {
+    font-size: 14px;
+    color: #c27e19;
+}
+.earnSet-bar-right .earnSet-body .subtitle {
+    font-size: 14px;
+    color: #666;
+}
+.earnSet-bar-right .earnSet-footer {
+    margin-top:30px;
+}

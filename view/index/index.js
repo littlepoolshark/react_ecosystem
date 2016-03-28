@@ -46,9 +46,9 @@ var bannerList=[
     {url:"../../static/img/banner3.jpg",index:3}
 ];
 var earnSetItems=[
-    {type:"ttz",yearRate:"0.08",status:"already_publish"},
-    {type:"yyz",yearRate:"0.095",status:"already_full"},
-    {type:"jjz",yearRate:"0.105",status:"success"}
+    {type:"ttz",yearRate:"8",status:"already_publish"},
+    {type:"yyz",yearRate:"9.5",status:"already_full"},
+    {type:"jjz",yearRate:"10.5",status:"success"}
     ];
 var investmentListHeaders=["项目名称","年化收益率","项目期限","项目金额","投资进度",""];
 

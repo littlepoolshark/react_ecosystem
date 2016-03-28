@@ -24,12 +24,13 @@ var EarnSetButton=React.createClass({
             default:
                 break;
         };
-        console.log("buttonClass:",buttonClass);
-        console.log("buttonText:",buttonText);
+
         return (
-            <button className={classNames(["nt-button","lg"],{"default": buttonClass === "default","disabled":buttonClass === "disabled"})}>
-                {buttonText}
-            </button>
+            <div className="earnSet-footer text-center">
+                <button className={classNames(["nt-button","lg"],{"default": buttonClass === "default","disabled":buttonClass === "disabled"})}>
+                    {buttonText}
+                </button>
+            </div>
         )
     }
 });
@@ -43,9 +44,9 @@ var EarnSetBody=React.createClass({
             "quarterlyEarn":this.props.type === "quarterlyEarn"
         });
         return (
-            <div className="earnSet-body">
-                <h5 className="earnSet-body-title">{this.props.yearRate}</h5>
-                <h6 className="earnSet-body-subtitle">年化收益率</h6>
+            <div className="earnSet-body text-center">
+                <h5 className="yearRate">{this.props.yearRate}<span className="unit">%</span></h5>
+                <h6 className="subtitle">年化收益率</h6>
                 <i className={classes}></i>
             </div>
         )
