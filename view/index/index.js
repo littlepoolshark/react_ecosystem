@@ -6,6 +6,7 @@ var ReactDOM=require("react-dom");
 var Dashboard=require("../../component/index/dashboard/Dashboard.jsx");
 var CircleProcessBar=require("../../component/utilities/circleProcessBar/CircleProcessBar.jsx");
 var InvestmentList=require("../../component/index/investmentList/InvestmentList.jsx");
+var InformationList=require("../../component/index/informationList/InformationList.jsx");
 var EarnSet=require("../../component/index/earnSet/EarnSet.jsx");
 var Modal=require("../../component/utilities/modal/Modal.jsx");
 var HelloWorld=require("../../component/index/helloWorld/HelloWorld.jsx");
@@ -23,6 +24,8 @@ var investmentListContainer=document.getElementById("investmentListContainer");
 var filterableProductTableContainer=document.getElementById("filterableProductTableContainer");
 var carouselContainer=document.getElementById("carouselContainer");
 var dashboardContainer=document.getElementById("dashboardContainer");
+var industryInfoContainer=document.getElementById("industryInfoContainer");
+var mediaReportContainer=document.getElementById("mediaReportContainer");
 
 
 var PRODUCTS = [
@@ -52,12 +55,38 @@ var earnSetItems=[
     ];
 var investmentListHeaders=["项目名称","年化收益率","项目期限","项目金额","投资进度",""];
 
+var informationListTopic={
+    imgUrl:"../../static/img/industryInfo-bg.png",
+    title:"股市大数据：南京人最爱炒股 苏州股民最阔绰",
+    content:"2015年A股波云诡谲，最终以9.41%的涨幅收官，振幅高达71.95%。记者从有关渠道获悉....."
+};
+var informationListItems=[
+    {
+        title:"电商下乡大潮加速了农村支付形态的变迁",
+        date:"2016-03-29"
+    },
+    {
+        title:"马云、王建林边打嘴仗边赚钱 如今几比几？",
+        date:"2016-03-28"
+    },
+    {
+        title:"博鳌互金论坛首次被P2P占领",
+        date:"2016-03-27"
+    },
+    {
+        title:"小小农资店日进500万，种植大户们如此疯狂为了啥？",
+        date:"2016-03-26"
+    }
+];
+
 
 
 ReactDOM.render(<Carousel bannerList={bannerList}/>,document.getElementById("carouselContainer"));
 ReactDOM.render(<Dashboard transactionAmount={16788888888} registeredUserAmount={77734567} />,dashboardContainer);
 ReactDOM.render(<EarnSet earnSetItems={earnSetItems}  />,earnSetContainer);
 ReactDOM.render(<InvestmentList titles={investmentListHeaders}  />,investmentListContainer);
+ReactDOM.render(<InformationList  items={informationListItems}  title="行业资讯" topic={informationListTopic} />,industryInfoContainer);
+ReactDOM.render(<InformationList  items={informationListItems}  title="媒体报道" topic={informationListTopic} />,mediaReportContainer);
 
 
 

@@ -53,7 +53,7 @@ var EarnSetBody=React.createClass({
     }
 });
 
-var EarnSetItem=React.createClass({
+var EarnSet=React.createClass({
     render:function(){
         var earnSetItems=this.props.earnSetItems.map(function(item,index){
             return(
@@ -71,4 +71,4 @@ var EarnSetItem=React.createClass({
     }
 });
 
-module.exports=EarnSetItem;
+module.exports=EarnSet;
