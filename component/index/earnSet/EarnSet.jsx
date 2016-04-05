@@ -3,6 +3,9 @@ var React=require("react");
 var classNames=require("classnames");
 
 var EarnSetButton=React.createClass({
+    _jump:function(){
+        window.location.href="/view/fixedLoan/fixedLoan.html";
+    },
     render:function(){
         var buttonClass="",
             buttonText="";
@@ -27,9 +30,10 @@ var EarnSetButton=React.createClass({
 
         return (
             <div className="earnSet-footer text-center">
-                <button className={classNames(["nt-button","lg"],{"default": buttonClass === "default","disabled":buttonClass === "disabled"})}>
+                <a className={classNames(["nt-button","lg"],{"default": buttonClass === "default","disabled":buttonClass === "disabled"})}
+                    href="/view/fixedLoan/fixedLoan.html" target="_blank">
                     {buttonText}
-                </button>
+                </a>
             </div>
         )
     }

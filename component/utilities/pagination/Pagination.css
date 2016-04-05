@@ -1,0 +1,18 @@
+.nt-pagination-btn {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    color:#fff;
+    font-size:14px;
+    background-color:deepskyblue;
+    cursor:pointer;
+}
+.nt-pagination-btn + .nt-pagination-btn {
+    margin-left:20px;
+}
+.nt-pagination-btn.active {
+    color:#fff;
+    background-color:red;
+}

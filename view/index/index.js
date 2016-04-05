@@ -13,20 +13,7 @@ var HelloWorld=require("../../component/index/helloWorld/HelloWorld.jsx");
 var FilterableProductTable=require("../../component/index/thinkInReact/FilterableProductTable.jsx");
 var Tab=require("../../component/utilities/tab/Tab.jsx");
 var Carousel=require("../../component/utilities/carousel/Carousel.jsx");
-
-
-var testButton=document.getElementById("test");
-var openAlertBtn=document.getElementById("openAlertBtn");
-var openConfirmBtn=document.getElementById("openConfirmBtn");
-var openDefaultBtn=document.getElementById("openDefaultBtn");
-var earnSetContainer=document.getElementById("earnSetContainer");
-var investmentListContainer=document.getElementById("investmentListContainer");
-var filterableProductTableContainer=document.getElementById("filterableProductTableContainer");
-var carouselContainer=document.getElementById("carouselContainer");
-var dashboardContainer=document.getElementById("dashboardContainer");
-var industryInfoContainer=document.getElementById("industryInfoContainer");
-var mediaReportContainer=document.getElementById("mediaReportContainer");
-
+var Pagination=require("../../component/utilities/pagination/pagination.jsx");
 
 var PRODUCTS = [
     {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
@@ -80,13 +67,55 @@ var informationListItems=[
 ];
 
 
+var App=React.createClass({
+    render:function(){
+        return (
+            <div className="nt-carouselContainer">
+                <div id="carouselContainer">
+                    <Carousel bannerList={bannerList}/>
+                </div>
+                <div id="dashboardContainer">
+                    <Dashboard transactionAmount={16788888888} registeredUserAmount={77734567} />
+                </div>
+                <div className="card earnSet-bar clearfix">
+                    <div className="earnSet-bar-left pull-left">
+                        <img src="/static/img/earnSet-ad-img.jpg" alt=""/>
+                    </div>
+                    <div className="earnSet-bar-right pull-left" >
+                        <div className="row clearfix earnSet-header" style={{margin:0}}>
+                            <h5 className="col-xs-4 text-center title">天天赚 <span className="subtitle">当日计息，随时退出</span></h5>
+                            <h5 className="col-xs-4 text-center title">月月赚 <span className="subtitle">省心省力，坐享其成</span></h5>
+                            <h5 className="col-xs-4 text-center title">季季赚 <span className="subtitle">定期理财，稳健收入</span></h5>
+                        </div>
+                        <div className="row clearfix" id="earnSetContainer" style={{margin:0}}>
+                            <EarnSet earnSetItems={earnSetItems}  />
+                        </div>
+                    </div>
+                </div>
+                <div className="card investmentList-bar clearfix">
+                    <div className="investmentList-bar-left pull-left">
+                        <img src="/static/img/investmentList-ad-img.jpg" alt=""/>
+                    </div>
+                    <div className="investmentList-bar-right pull-left" id="investmentListContainer">
+                        <InvestmentList titles={investmentListHeaders}  />
+                    </div>
+                </div>
+                <div className="card informationList-bar clearfix" style={{backgroundColor:"#f1f1f1"}}>
+                    <div className="col-xs-5" id="industryInfoContainer">
+                        <InformationList  items={informationListItems}  title="行业资讯" topic={informationListTopic} />
+                    </div>
+                    <div className="col-xs-5 col-xs-offset-2" id="mediaReportContainer">
+                        <InformationList  items={informationListItems}  title="媒体报道" topic={informationListTopic} />
+                    </div>
+                </div>
+                <Pagination totalPages={20}/>
+            </div>
 
-ReactDOM.render(<Carousel bannerList={bannerList}/>,document.getElementById("carouselContainer"));
-ReactDOM.render(<Dashboard transactionAmount={16788888888} registeredUserAmount={77734567} />,dashboardContainer);
-ReactDOM.render(<EarnSet earnSetItems={earnSetItems}  />,earnSetContainer);
-ReactDOM.render(<InvestmentList titles={investmentListHeaders}  />,investmentListContainer);
-ReactDOM.render(<InformationList  items={informationListItems}  title="行业资讯" topic={informationListTopic} />,industryInfoContainer);
-ReactDOM.render(<InformationList  items={informationListItems}  title="媒体报道" topic={informationListTopic} />,mediaReportContainer);
+        )
+    }
+});
+
+ReactDOM.render(<App />,document.getElementById("appContainer"));
 
 
 
