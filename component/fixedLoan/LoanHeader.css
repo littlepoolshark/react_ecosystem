@@ -1,5 +1,7 @@
 .loan-header {
+    margin-top:0;
     margin-bottom: 25px;
+    padding-bottom:5px;
     font-size:18px;
     color:#333;
     font-weight:normal;
