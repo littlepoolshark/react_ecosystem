@@ -4,8 +4,12 @@ var pathToReact=path.resolve(node_modules,"react/dist/react.min.js");
 var pathToReactDOM=path.resolve(node_modules,"react-dom/dist/react-dom.min.js");
 module.exports={
     //entry:['webpack/hot/dev-server','webpack-dev-server/client?http://localhost:8080',path.resolve(__dirname,"view/index/index.js")],//对应要运行的命令是：npm run dev
-    //entry:[path.resolve(__dirname,"view/index/index.js")],//对应要运行的命令是：webpack
-    entry:['webpack-dev-server/client?http://localhost:8080',path.resolve(__dirname,"view/index/index.js")],//对应要运行的命令是：webpack-dev-server --inline
+    //entry:[path.resolve(__dirname,"view/index/index.js")],//对应要运行的命令是：webpack(一次性的编译)
+    entry:{//对应要运行的命令是：webpack-dev-sever --inline --hot
+        index:['webpack/hot/only-dev-server','webpack-dev-server/client?http://localhost:8080',path.resolve(__dirname,"view/index/index.js")],
+        fixedLoan:['webpack/hot/only-dev-server','webpack-dev-server/client?http://localhost:8080',path.resolve(__dirname,"view/fixedLoan/fixedLoan.js")]
+    },
+    //entry:['webpack-dev-server/client?http://localhost:8080',path.resolve(__dirname,"view/index/index.js")],//对应要运行的命令是：webpack-dev-server --inline
    /* resolve:{
         alias:{
             "react":pathToReact,//每当“react”在代码中被引入，它会使用压缩后的react.min.js，而不是使用默认的react.js
@@ -14,7 +18,7 @@ module.exports={
     },*/
     output:{
         path:path.resolve(__dirname,"build"),
-        filename:"index.bundle.js"
+        filename:"[name].bundle.js"
     },
     module:{
         loaders:[
