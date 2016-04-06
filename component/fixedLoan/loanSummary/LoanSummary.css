@@ -1,0 +1,22 @@
+.loanSummary-title-wrapper {
+    border-right:1px dashed #c2c2c2;
+}
+.loanSummary-title-wrapper.last-child {
+    border-right:none;
+}
+.loanSummary-title {
+    font-size:48px;
+    color:#c37e18;
+}
+.loanSummary-title-unit {
+    font-size: 24px;
+    color: #c37e18;
+}
+.loanSummary-title  .remainAmount {
+    font-size:30px;
+}
+.loanSummary-subtitle{
+    color: #999;
+    font-size: 14px;
+    font-weight: normal;
+}
