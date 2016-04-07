@@ -54,6 +54,11 @@ var GetPurchaseAmount=React.createClass({
 
 //对用户所输入的金额进行验证
 var CheckPurchaseAmount=React.createClass({
+    //getDefaultProps:function(){
+    //    return {
+    //        isFirstRender:true
+    //    }
+    //},
     _validate:function(loanRemainAmount,userBalance,purchaseAmount){
         var validation={};
         if(userBalance < 100){
@@ -104,7 +109,7 @@ var CheckPurchaseAmount=React.createClass({
         var validation=this._validate(this.props.loanRemainAmount,this.props.userBalance,this.props.purchaseAmount);
         var classes=classNames({
             "loan-purchaseZone-errorMessage":true,
-            "hide":validation.success
+            "show":!validation.success
         });
 
         return (
