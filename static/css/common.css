@@ -1,11 +1,19 @@
+/*css box model and global styles*/
+* {
+    box-sizing:border-box;
+}
 body {
     font-family: "Microsoft yahei","Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:14px;
 }
+
+/*button component*/
 .nt-button {
     display:inline-block;
     height:35px;
     line-height:35px;
     text-align:center;
+    font-size:14px;
     border-radius:4px;
     background-color:transparent;
     outline:none;
@@ -24,4 +32,20 @@ body {
 }
 .nt-button.lg {
     width:235px;
+}
+.nt-button.block {
+    width:100%;
+}
+
+/*input component*/
+.nt-input {
+    height: 45px;
+    width: 100%;
+    padding-left: 10px;
+    line-height: 43px;
+    border:1px solid #c2c2c2;
+    background-color:#fff;
+}
+.nt-input.block {
+    width:100%;
 }

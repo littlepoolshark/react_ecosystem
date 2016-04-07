@@ -1,0 +1,23 @@
+.loan-purchaseZone>div {
+    margin-bottom:12px;
+}
+.loan-purchaseZone-subtitle {
+    color: #333;
+    font-size: 14px;
+    font-weight:normal;
+}
+.loan-purchaseAll-and-recharge>a {
+    color:#c37e18;
+    text-decoration:none;
+}
+.loan-purchaseAll-and-recharge>a:hover {
+    text-decoration:underline;
+}
+.loan-purchaseZone .amount {
+    margin-right:3px;
+    color:#c37e18;
+}
+.loan-purchaseZone-errorMessage {
+    margin:0 0 5px;
+    color:red;
+}

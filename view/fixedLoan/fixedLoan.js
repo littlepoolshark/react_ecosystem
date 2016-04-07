@@ -1,7 +1,7 @@
 require("../../static/css/bootstrap.grid.css");
 require("../../static/css/utilities.css");
-require("../../static/css/common.css");
 require("./fixedLoan.css");
+require("../../static/css/common.css");
 
 var React=require("react");
 var ReactDOM=require("react-dom");
@@ -9,6 +9,7 @@ var LoanHeader=require("../../component/fixedLoan/loanHeader/LoanHeader.jsx");
 var LoanSummary=require("../../component/fixedLoan/loanSummary/LoanSummary.jsx");
 var LoanBasicInfo=require("../../component/fixedLoan/loanBasicInfo/LoanBasicInfo.jsx");
 var LoanProgressBar=require("../../component/fixedLoan/loanProgressBar/LoanProgressBar.jsx");
+var LoanPurchaseZone=require("../../component/fixedLoan/loanPurchaseZone/LoanPurchaseZone.jsx");
 
 var App=React.createClass({
     render:function(){
@@ -24,7 +25,7 @@ var App=React.createClass({
                             <LoanProgressBar />
                         </div>
                         <div className="col-xs-4 col-xs-offset-1">
-
+                            <LoanPurchaseZone />
                         </div>
                     </div>
                 </div>
