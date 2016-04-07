@@ -1,4 +1,7 @@
-
+/*
+* 这个例子来自于facebook官方网站。
+* 它阐述了使用react的组件思想来构建UI的思路。
+*/
 var React=require("react");
 var ReactDOM=require("react-dom");
 
