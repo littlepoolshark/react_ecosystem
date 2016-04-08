@@ -36,7 +36,8 @@ var RechargeButton=React.createClass({
 //接收用户所输入的购买金额
 var GetPurchaseAmount=React.createClass({
     _handlePurchaseAmountChange:function(){
-        this.props.handleChange(parseFloat(this.refs.purchaseAmount.value));
+        var purchase=this.refs.purchaseAmount.value === "" ? "" : parseFloat(this.refs.purchaseAmount.value);
+        this.props.handleChange(purchase);
     },
     render:function(){
         return (
@@ -54,7 +55,95 @@ var GetPurchaseAmount=React.createClass({
 
 //对用户所输入的金额进行验证
 var CheckPurchaseAmount=React.createClass({
+    componentWillMount:function(){
+        this.isFirstRender=true;
+    },
+    render:function(){
+        var classes=classNames({
+            "loan-purchaseZone-errorMessage":true,
+            "invisible":this.isFirstRender ? true : this.props.didPassValidation //第一次渲染的时候，隐藏错误信息
+        });
+
+        return (
+            <p className={classes} style={{marginBottom:"20px"}}>
+                {this.props.validationMessage}
+            </p>
+        )
+    },
+    componentDidMount:function(){
+        this.isFirstRender=false;
+    }
+
+});
+
+//计算预期收益
+var FigureOutExpectedReturn=React.createClass({
+    _calculate:function(purchaseAmount,loanYearRate,loanDeadline){
+        var expectedReturn=purchaseAmount === "" ? 0.00 : ((purchaseAmount * loanYearRate)/12 * loanDeadline).toFixed(2);
+        return expectedReturn;
+    },
+    render:function(){
+        return (
+            <div style={{marginTop:"10px"}}>
+                <label className="loan-purchaseZone-subtitle">预期收益：</label>
+                <span className="amount">{this._calculate(this.props.purchaseAmount,this.props.loanYearRate,this.props.loanDeadline)}</span>元
+            </div>
+        )
+    }
+});
+
+
+//匹配红包并且计算出实际的支付金额
+var FigureOutActualPayment=React.createClass({
+    render:function(){
+        return (
+            <div className="clearfix">
+                <label  className="loan-purchaseZone-subtitle pull-left">使用<span className="amount">0.00</span>元红包</label>
+                <label  className="loan-purchaseZone-subtitle pull-right">支付金额：<span className="amount">0</span>元</label>
+            </div>
+        )
+    }
+});
+
+//购买
+var PurchaseButton=React.createClass({
+    _handleClick:function(){
+        if(!this.props.didLogin){
+            console.log("是时候弹出登录模态窗口了！")
+        }else if(!this.props.didPassValidation){
+            console.log("验证不通过！！")
+        } else if(this.props.didLogin && this.props.didPassValidation){
+            console.log("是时候弹出购买确定模态窗口了！")
+        }
+    },
+    render:function(){
+        var buttonText=this.props.didLogin ? "立即抢购" : "登录抢购" ;
+
+        return (
+            <div>
+                <button className="nt-button block default" onClick={this._handleClick}>{buttonText}</button>
+            </div>
+        )
+    }
+});
+
+
+
+
+//view controller
+var LoanPurchaseZone=React.createClass({
+    getInitialState:function(){
+        return {
+            purchaseAmount:0
+        }
+    },
+    _handleChange:function(purchaseAmount){
+        this.setState({
+            purchaseAmount:purchaseAmount
+        });
+    },
     _validate:function(loanRemainAmount,userBalance,purchaseAmount){
+
         var validation={};
         if(userBalance < 100){
             validation={
@@ -101,77 +190,8 @@ var CheckPurchaseAmount=React.createClass({
         return validation;
     },
     render:function(){
-        var validation=this._validate(this.props.loanRemainAmount,this.props.userBalance,this.props.purchaseAmount);
-        var classes=classNames({
-            "loan-purchaseZone-errorMessage":true,
-            "hide":validation.success
-        });
+        var validation=this._validate(this.props.loanRemainAmount,this.props.userBalance,this.state.purchaseAmount)
 
-        return (
-            <p className={classes} style={{marginBottom:"20px"}}>
-                {validation.message}
-            </p>
-        )
-    }
-});
-
-//计算预期收益
-var FigureOutExpectedReturn=React.createClass({
-    _calculate:function(purchaseAmount,loanYearRate,loanDeadline){
-        console.log(typeof purchaseAmount,typeof loanYearRate,typeof loanDeadline);
-        var expectedReturn=((purchaseAmount * loanYearRate)/12 * loanDeadline).toFixed(2);
-        return expectedReturn;
-    },
-    render:function(){
-        return (
-            <div>
-                <label className="loan-purchaseZone-subtitle">预期收益：</label>
-                <span className="amount">{this._calculate(this.props.purchaseAmount,this.props.loanYearRate,this.props.loanDeadline)}</span>元
-            </div>
-        )
-    }
-});
-
-
-//匹配红包并且计算出实际的支付金额
-var FigureOutActualPayment=React.createClass({
-    render:function(){
-        return (
-            <div className="clearfix">
-                <label  className="loan-purchaseZone-subtitle pull-left">使用<span className="amount">0.00</span>元红包</label>
-                <label  className="loan-purchaseZone-subtitle pull-right">支付金额：<span className="amount">0</span>元</label>
-            </div>
-        )
-    }
-});
-
-//购买
-var PurchaseButton=React.createClass({
-    render:function(){
-        return (
-            <div>
-                <button className="nt-button block default">立即抢购</button>
-            </div>
-        )
-    }
-});
-
-
-
-
-//view controller
-var LoanPurchaseZone=React.createClass({
-    getInitialState:function(){
-        return {
-            purchaseAmount:""
-        }
-    },
-    _handleChange:function(purchaseAmount){
-        this.setState({
-            purchaseAmount:purchaseAmount
-        });
-    },
-    render:function(){
         return (
             <div className="loan-purchaseZone">
                 <UserUsableBalance userBalance={10000}/>
@@ -181,13 +201,12 @@ var LoanPurchaseZone=React.createClass({
                 </div>
                 <GetPurchaseAmount handleChange={this._handleChange}/>
                 <CheckPurchaseAmount
-                    loanRemainAmount={10000}
-                    userBalance={20000}
-                    purchaseAmount={this.state.purchaseAmount}
+                    didPassValidation={validation.success}
+                    validationMessage={validation.message}
                 />
                 <FigureOutExpectedReturn loanYearRate={0.095} loanDeadline={6} purchaseAmount={this.state.purchaseAmount}/>
                 <FigureOutActualPayment />
-                <PurchaseButton />
+                <PurchaseButton  didPassValidation={validation.success} didLogin={true} />
             </div>
         )
     }

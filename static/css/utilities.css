@@ -46,6 +46,9 @@
 .invisible {
   visibility: hidden;
 }
+.visible {
+  visibility: visible;
+}
 
 .text-hide {
   font: 0/0 a;
