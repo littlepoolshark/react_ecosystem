@@ -18,7 +18,7 @@
     color:#c37e18;
 }
 .loan-purchaseZone-errorMessage {
-    display:none;
+    height:20px;
     margin:0 0 5px;
     color:red;
 }
