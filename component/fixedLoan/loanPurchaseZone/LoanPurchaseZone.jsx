@@ -17,18 +17,41 @@ var UserUsableBalance=React.createClass({
 
 //余额全部购买
 var UsingAllBalanceButton=React.createClass({
+    _figureOutUsableAmount:function(userBalance,loanRemainAmount){
+        var userBalance=parseInt(userBalance),
+            loanRemainAmount=parseInt(loanRemainAmount);
+        var UsableAmount=userBalance >= loanRemainAmount ?
+                         loanRemainAmount :
+                         userBalance ;
+        return UsableAmount;
+    },
+    _handleClick:function(){
+        if(!this.props.didLogin){
+            console.log("是时候弹出登陆框了！");
+        }else {
+            //console.log("this._figureOutUsableAmount():",this._figureOutUsableAmount());
+            this.props.handleChange(this._figureOutUsableAmount(this.props.userBalance,this.props.loanRemainAmount));
+        }
+    },
     render:function(){
         return (
-            <a href="javascript:void(0)" className="pull-left">余额全部购买</a>
+            <a href="javascript:void(0)" className="pull-left" onClick={this._handleClick}>余额全部购买</a>
         )
     }
 });
 
 //充值
 var RechargeButton=React.createClass({
+    _handleClick:function(){
+        if(!this.props.didLogin){
+            console.log("是时候弹出登陆框了！");
+        }else {
+            console.log("使用window.location.href跳转");
+        }
+    },
     render:function(){
         return (
-            <a href="javascript:void(0)" className="pull-right">充值 》</a>
+            <a href="javascript:void(0)" className="pull-right" onClick={this._handleClick}>充值 》</a>
         )
     }
 });
@@ -44,9 +67,11 @@ var GetPurchaseAmount=React.createClass({
             <div style={{marginBottom:"0"}}>
                 <input type="text"
                        className="nt-input block"
+                       value={this.props.purchaseAmount}
                        placeholder="100元起投，100的整数倍追加"
                        onChange={this._handlePurchaseAmountChange}
                        ref="purchaseAmount"
+                       defaultValue=""
                 />
             </div>
         )
@@ -95,11 +120,33 @@ var FigureOutExpectedReturn=React.createClass({
 
 //匹配红包并且计算出实际的支付金额
 var FigureOutActualPayment=React.createClass({
+    _calculateActualPayment:function(redPackageAmount,purchaseAmount){
+        var actualPayment=(purchaseAmount-redPackageAmount).toFixed(0);
+        return actualPayment;
+    },
+    _redPackageMatch:function(redPackageList,purchaseAmount){
+        var redPackageAmount=0;
+        for(var key in redPackageList){
+            if(parseInt(purchaseAmount) === parseInt(key)) {
+                redPackageAmount=redPackageList[key];
+                break;
+            }
+        }
+        return redPackageAmount;
+    },
     render:function(){
+        var redPackageAmount=this._redPackageMatch(this.props.redPackageList,this.props.purchaseAmount);
+        var actualPayment=this._calculateActualPayment(redPackageAmount,this.props.purchaseAmount);
+
+        var classes=classNames({
+            "clearfix":true,
+            "hide":redPackageAmount ? false : true
+        });
+
         return (
-            <div className="clearfix">
-                <label  className="loan-purchaseZone-subtitle pull-left">使用<span className="amount">0.00</span>元红包</label>
-                <label  className="loan-purchaseZone-subtitle pull-right">支付金额：<span className="amount">0</span>元</label>
+            <div className={classes}>
+                <label  className="loan-purchaseZone-subtitle pull-left">使用<span className="amount">{redPackageAmount}</span>元红包</label>
+                <label  className="loan-purchaseZone-subtitle pull-right">支付金额：<span className="amount">{actualPayment}</span>元</label>
             </div>
         )
     }
@@ -196,16 +243,21 @@ var LoanPurchaseZone=React.createClass({
             <div className="loan-purchaseZone">
                 <UserUsableBalance userBalance={10000}/>
                 <div className="clearfix loan-purchaseAll-and-recharge">
-                    <UsingAllBalanceButton />
-                    <RechargeButton />
+                    <UsingAllBalanceButton
+                        didLogin={true}
+                        userBalance={10000.89}
+                        loanRemainAmount={20000}
+                        handleChange={this._handleChange}
+                    />
+                    <RechargeButton didLogin={true} />
                 </div>
-                <GetPurchaseAmount handleChange={this._handleChange}/>
+                <GetPurchaseAmount handleChange={this._handleChange} purchaseAmount={this.state.purchaseAmount}/>
                 <CheckPurchaseAmount
                     didPassValidation={validation.success}
                     validationMessage={validation.message}
                 />
                 <FigureOutExpectedReturn loanYearRate={0.095} loanDeadline={6} purchaseAmount={this.state.purchaseAmount}/>
-                <FigureOutActualPayment />
+                <FigureOutActualPayment redPackageList={{"500":10,"1000":100}} purchaseAmount={this.state.purchaseAmount}/>
                 <PurchaseButton  didPassValidation={validation.success} didLogin={true} />
             </div>
         )
