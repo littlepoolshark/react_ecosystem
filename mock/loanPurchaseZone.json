@@ -1,0 +1,13 @@
+{
+  "userBalance":10000,
+  "isLogin":true,
+  "loanObject":{
+    "yearRate":0.095,
+    "deadline":1,
+    "deadlineUnit":"个月",
+    "remainAmount":20000,
+    "totalAmount":100000,
+    "redPackageList":{"500":10,"1000":100,"10000":1000},
+    "pushTime":1460291448820
+  }
+}

@@ -2,6 +2,8 @@ require("./LoanPurchaseZone.css");
 
 var React=require("react");
 var classNames=require("classnames");
+var loanPurchaseZoneStore=require("../../../store/fixedLoan/loanPurchaseZoneStore.js");
+var loanPurchaseZoneAction=require("../../../action/fixedLoan/loanPurchaseZoneAction.js");
 
 //用户可用余额
 var UserUsableBalance=React.createClass({
@@ -62,19 +64,25 @@ var GetPurchaseAmount=React.createClass({
         var purchase=this.refs.purchaseAmount.value === "" ? "" : parseFloat(this.refs.purchaseAmount.value);
         this.props.handleChange(purchase);
     },
+    componentWillMount:function(){
+        this.isFirstRender=true;
+    },
     render:function(){
+        var purchaseAmount=this.isFirstRender ? "" : this.props.purchaseAmount ;
         return (
             <div style={{marginBottom:"0"}}>
                 <input type="text"
                        className="nt-input block"
-                       value={this.props.purchaseAmount}
+                       value={purchaseAmount}
                        placeholder="100元起投，100的整数倍追加"
                        onChange={this._handlePurchaseAmountChange}
                        ref="purchaseAmount"
-                       defaultValue=""
                 />
             </div>
         )
+    },
+    componentDidMount:function(){
+        this.isFirstRender=false;
     }
 });
 
@@ -236,31 +244,43 @@ var LoanPurchaseZone=React.createClass({
 
         return validation;
     },
+    componentWillMount:function(){
+        var _self=this;
+        loanPurchaseZoneAction.getData();
+        loanPurchaseZoneStore.bind("change",function(){
+            _self.isLogin=loanPurchaseZoneStore.getIsLogin();
+            _self.userBalance=loanPurchaseZoneStore.getUserBalance();
+            _self.loanObject=loanPurchaseZoneStore.getLoanObject();
+        });
+    },
     render:function(){
         var validation=this._validate(this.props.loanRemainAmount,this.props.userBalance,this.state.purchaseAmount)
 
         return (
             <div className="loan-purchaseZone">
-                <UserUsableBalance userBalance={10000}/>
+                <UserUsableBalance userBalance={this.userBalance}/>
                 <div className="clearfix loan-purchaseAll-and-recharge">
                     <UsingAllBalanceButton
-                        didLogin={true}
-                        userBalance={10000.89}
-                        loanRemainAmount={20000}
+                        didLogin={this.isLogin}
+                        userBalance={this.userBalance}
+                        loanRemainAmount={this.loanObject.remainAmount}
                         handleChange={this._handleChange}
                     />
-                    <RechargeButton didLogin={true} />
+                    <RechargeButton didLogin={this.isLogin} />
                 </div>
                 <GetPurchaseAmount handleChange={this._handleChange} purchaseAmount={this.state.purchaseAmount}/>
                 <CheckPurchaseAmount
                     didPassValidation={validation.success}
                     validationMessage={validation.message}
                 />
-                <FigureOutExpectedReturn loanYearRate={0.095} loanDeadline={6} purchaseAmount={this.state.purchaseAmount}/>
-                <FigureOutActualPayment redPackageList={{"500":10,"1000":100}} purchaseAmount={this.state.purchaseAmount}/>
-                <PurchaseButton  didPassValidation={validation.success} didLogin={true} />
+                <FigureOutExpectedReturn loanYearRate={this.loanObject.yearRate} loanDeadline={this.loanObject.deadline} purchaseAmount={this.state.purchaseAmount}/>
+                <FigureOutActualPayment redPackageList={this.loanObject.redPackageList} purchaseAmount={this.state.purchaseAmount}/>
+                <PurchaseButton  didPassValidation={validation.success} didLogin={this.isLogin} />
             </div>
         )
+    },
+    componentDidMount:function(){
+
     }
 });
 
