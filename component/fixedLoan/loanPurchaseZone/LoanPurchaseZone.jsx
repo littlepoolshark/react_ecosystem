@@ -248,33 +248,38 @@ var LoanPurchaseZone=React.createClass({
         var _self=this;
         loanPurchaseZoneAction.getData();
         loanPurchaseZoneStore.bind("change",function(){
+            console.log("into change callback");
             _self.isLogin=loanPurchaseZoneStore.getIsLogin();
             _self.userBalance=loanPurchaseZoneStore.getUserBalance();
             _self.loanObject=loanPurchaseZoneStore.getLoanObject();
+            _self.setState({
+                purchaseAmount:0
+            });
         });
     },
     render:function(){
-        var validation=this._validate(this.props.loanRemainAmount,this.props.userBalance,this.state.purchaseAmount)
-
+        //var validation=this._validate(this.loanObject.remainAmount,this.userBalance,this.state.purchaseAmount);
+        var validation={success:true,message:""};
+        console.log("this.isLogin:",this.isLogin);
         return (
             <div className="loan-purchaseZone">
-                <UserUsableBalance userBalance={this.userBalance}/>
+                <UserUsableBalance userBalance={this.userBalance || 0}/>
                 <div className="clearfix loan-purchaseAll-and-recharge">
                     <UsingAllBalanceButton
-                        didLogin={this.isLogin}
-                        userBalance={this.userBalance}
-                        loanRemainAmount={this.loanObject.remainAmount}
+                        didLogin={this.isLogin || false}
+                        userBalance={this.userBalance || 0}
+                        loanRemainAmount={this.loanObject ? this.loanObject.remainAmount : 0 }
                         handleChange={this._handleChange}
                     />
-                    <RechargeButton didLogin={this.isLogin} />
+                    <RechargeButton didLogin={this.isLogin || false} />
                 </div>
                 <GetPurchaseAmount handleChange={this._handleChange} purchaseAmount={this.state.purchaseAmount}/>
                 <CheckPurchaseAmount
                     didPassValidation={validation.success}
                     validationMessage={validation.message}
                 />
-                <FigureOutExpectedReturn loanYearRate={this.loanObject.yearRate} loanDeadline={this.loanObject.deadline} purchaseAmount={this.state.purchaseAmount}/>
-                <FigureOutActualPayment redPackageList={this.loanObject.redPackageList} purchaseAmount={this.state.purchaseAmount}/>
+                <FigureOutExpectedReturn loanYearRate={this.loanObject ? this.loanObject.yearRate : "--"} loanDeadline={this.loanObject ? this.loanObject.deadline : 3} purchaseAmount={this.state.purchaseAmount}/>
+                <FigureOutActualPayment redPackageList={this.loanObject ? this.loanObject.redPackageList : []} purchaseAmount={this.state.purchaseAmount}/>
                 <PurchaseButton  didPassValidation={validation.success} didLogin={this.isLogin} />
             </div>
         )

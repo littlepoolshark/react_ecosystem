@@ -2,7 +2,7 @@ var Dispatcher = require('flux').Dispatcher;
 var appDispatcher = new Dispatcher();
 var $=require("jquery");
 var investmentListStore = require('../store/index/investmentListStore.js');
-var lonaPurchaseZoneStore=require('../store/fixedLoan/loanPurchaseZone');
+var lonaPurchaseZoneStore=require('../store/fixedLoan/loanPurchaseZoneStore.js');
 
 appDispatcher.register( function( payload ) {
     switch( payload.actionName ) {
@@ -31,9 +31,9 @@ appDispatcher.register( function( payload ) {
                 type:"get",
                 dataType:"json",
                 success:function(rs){
-                    lonaPurchaseZoneStore.setIsLogin(rs.data);
-                    lonaPurchaseZoneStore.setUserBalance(rs.data);
-                    lonaPurchaseZoneStore.setLoanObject(rs.data);
+                    lonaPurchaseZoneStore.setIsLogin(rs.isLogin);
+                    lonaPurchaseZoneStore.setUserBalance(rs.userBalance);
+                    lonaPurchaseZoneStore.setLoanObject(rs.loanObject);
                     lonaPurchaseZoneStore.trigger("change");
                 }
             })
