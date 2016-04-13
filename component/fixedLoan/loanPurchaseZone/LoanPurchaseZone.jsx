@@ -11,9 +11,11 @@ var UserUsableBalance=React.createClass({
         return (
             <div>
                 <label className="loan-purchaseZone-subtitle">账户可用余额：</label>
-                <span className="amount">{this.props.userBalance}</span>元
+                <span className="amount">{this.props.userBalance}</span>
             </div>
         )
+    },
+    componentDidMount:function(){
     }
 });
 
@@ -248,7 +250,6 @@ var LoanPurchaseZone=React.createClass({
         var _self=this;
         loanPurchaseZoneAction.getData();
         loanPurchaseZoneStore.bind("change",function(){
-            console.log("into change callback");
             _self.isLogin=loanPurchaseZoneStore.getIsLogin();
             _self.userBalance=loanPurchaseZoneStore.getUserBalance();
             _self.loanObject=loanPurchaseZoneStore.getLoanObject();
@@ -260,7 +261,6 @@ var LoanPurchaseZone=React.createClass({
     render:function(){
         //var validation=this._validate(this.loanObject.remainAmount,this.userBalance,this.state.purchaseAmount);
         var validation={success:true,message:""};
-        console.log("this.isLogin:",this.isLogin);
         return (
             <div className="loan-purchaseZone">
                 <UserUsableBalance userBalance={this.userBalance || 0}/>
@@ -285,7 +285,6 @@ var LoanPurchaseZone=React.createClass({
         )
     },
     componentDidMount:function(){
-
     }
 });
 
