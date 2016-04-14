@@ -21,26 +21,21 @@ var UserUsableBalance=React.createClass({
 
 //余额全部购买
 var UsingAllBalanceButton=React.createClass({
-    _figureOutUsableAmount:function(userBalance,loanRemainAmount){
-        var userBalance=parseInt(userBalance),
-            loanRemainAmount=parseInt(loanRemainAmount);
-        var UsableAmount=userBalance >= loanRemainAmount ?
-                         loanRemainAmount :
-                         userBalance ;
-        return UsableAmount;
-    },
     _handleClick:function(){
-        if(!this.props.didLogin){
-            console.log("是时候弹出登陆框了！");
-        }else {
-            //console.log("this._figureOutUsableAmount():",this._figureOutUsableAmount());
-            this.props.handleChange(this._figureOutUsableAmount(this.props.userBalance,this.props.loanRemainAmount));
-        }
+        loanPurchaseZoneAction.useAllBalance();
     },
     render:function(){
         return (
             <a href="javascript:void(0)" className="pull-left" onClick={this._handleClick}>余额全部购买</a>
         )
+    },
+    componentDidMount:function(){
+        loanPurchaseZoneStore.bind("didNotLogin",function(){
+            alert("您没有登录，请先登录！");
+        });
+        loanPurchaseZoneStore.bind("purchaseAmountChange",function(data){
+            console.log("data",data);
+        });
     }
 });
 
@@ -285,6 +280,9 @@ var LoanPurchaseZone=React.createClass({
         )
     },
     componentDidMount:function(){
+        loanPurchaseZoneStore.bind("purchaseAmountChange",function(purchaseAmount){
+            this._handleChange(purchaseAmount);
+        }.bind(this))
     }
 });
 

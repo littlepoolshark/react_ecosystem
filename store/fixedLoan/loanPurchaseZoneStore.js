@@ -21,6 +21,20 @@ var loanPurchaseZoneStore={
     },
     getLoanObject:function() {
         return this.loanObject;
+    },
+    setLoanRemainAmount:function(){
+        this.loanRemainAmount=20000;
+    },
+    getLoanRemainAmount:function(){
+        return this.loanRemainAmount;
+    },
+    figureOutUsableAmount:function(userBalance,loanRemainAmount){
+        var userBalance=parseInt(userBalance),
+            loanRemainAmount=parseInt(loanRemainAmount);
+        var UsableAmount=userBalance >= loanRemainAmount ?
+            loanRemainAmount :
+            userBalance ;
+        return UsableAmount;
     }
 };
 

@@ -2,7 +2,7 @@ var Dispatcher = require('flux').Dispatcher;
 var appDispatcher = new Dispatcher();
 var $=require("jquery");
 var investmentListStore = require('../store/index/investmentListStore.js');
-var lonaPurchaseZoneStore=require('../store/fixedLoan/loanPurchaseZoneStore.js');
+var loanPurchaseZoneStore=require('../store/fixedLoan/loanPurchaseZoneStore.js');
 
 appDispatcher.register( function( payload ) {
     switch( payload.actionName ) {
@@ -31,12 +31,24 @@ appDispatcher.register( function( payload ) {
                 type:"get",
                 dataType:"json",
                 success:function(rs){
-                    lonaPurchaseZoneStore.setIsLogin(rs.isLogin);
-                    lonaPurchaseZoneStore.setUserBalance(rs.userBalance);
-                    lonaPurchaseZoneStore.setLoanObject(rs.loanObject);
-                    lonaPurchaseZoneStore.trigger("change");
+                    loanPurchaseZoneStore.setIsLogin(rs.isLogin);
+                    loanPurchaseZoneStore.setUserBalance(rs.userBalance);
+                    loanPurchaseZoneStore.setLoanObject(rs.loanObject);
+                    loanPurchaseZoneStore.trigger("change");
                 }
-            })
+            });
+            break;
+        case 'loanPurchaseZone.useAllBalance':
+            var userBalance,loanRemainAmount,purchaseAmount;
+            if(loanPurchaseZoneStore.getIsLogin() !== true){
+                loanPurchaseZoneStore.trigger("didNotLogin");
+            }else {
+                userBalance=loanPurchaseZoneStore.getUserBalance();
+                loanRemainAmount=loanPurchaseZoneStore.getLoanRemainAmount();
+                purchaseAmount=loanPurchaseZoneStore.figureOutUsableAmount(userBalance,loanRemainAmount);
+                loanPurchaseZoneStore.trigger("purchaseAmountChange",purchaseAmount);
+            }
+            break;
         default :
             break;
     }

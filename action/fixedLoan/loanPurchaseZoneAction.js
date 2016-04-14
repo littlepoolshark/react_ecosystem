@@ -13,7 +13,7 @@ var loanPurchaseZoneAction={
     },
     useAllBalance:function(id){
         appDispatcher.dispatch({
-            actionName:"loanPurchaseZone.useAllBalance",
+            actionName:"loanPurchaseZone.useAllBalance"
         })
     }
 };
