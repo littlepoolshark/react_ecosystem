@@ -39,15 +39,32 @@ appDispatcher.register( function( payload ) {
             });
             break;
         case 'loanPurchaseZone.useAllBalance':
-            var userBalance,loanRemainAmount,purchaseAmount;
             if(loanPurchaseZoneStore.getIsLogin() !== true){
                 loanPurchaseZoneStore.trigger("didNotLogin");
             }else {
-                userBalance=loanPurchaseZoneStore.getUserBalance();
-                loanRemainAmount=loanPurchaseZoneStore.getLoanRemainAmount();
-                purchaseAmount=loanPurchaseZoneStore.figureOutUsableAmount(userBalance,loanRemainAmount);
-                loanPurchaseZoneStore.trigger("purchaseAmountChange",purchaseAmount);
+                var purchaseAmount=loanPurchaseZoneStore.figureOutUsableAmount();
+                loanPurchaseZoneStore.setPurchaseAmount(purchaseAmount);
+                loanPurchaseZoneStore.checkoutPurchaseAmount();
+                loanPurchaseZoneStore.FigureOutExpectedReturnAmount();
+                loanPurchaseZoneStore.matchRedPackage();
+                loanPurchaseZoneStore.FigureOutActualPayment();
+                loanPurchaseZoneStore.trigger("purchaseAmountChange");
             }
+            break;
+        case 'recharge':
+            if(loanPurchaseZoneStore.getIsLogin() !== true){
+                loanPurchaseZoneStore.trigger("didNotLogin");
+            }else {
+               loanPurchaseZoneStore.trigger("goToRecharge");
+            }
+            break;
+        case 'loanPurchaseZone.fillInPurchaseAmount':
+            loanPurchaseZoneStore.setPurchaseAmount(payload.purchaseAmount);
+            loanPurchaseZoneStore.checkoutPurchaseAmount();
+            loanPurchaseZoneStore.FigureOutExpectedReturnAmount();
+            loanPurchaseZoneStore.matchRedPackage();
+            loanPurchaseZoneStore.FigureOutActualPayment();
+            loanPurchaseZoneStore.trigger("purchaseAmountChange");
             break;
         default :
             break;

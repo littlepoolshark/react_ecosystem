@@ -11,9 +11,20 @@ var loanPurchaseZoneAction={
             actionName:"loanPurchaseZone.checkPurchaseAmount"
         })
     },
-    useAllBalance:function(id){
+    useAllBalance:function(){
         appDispatcher.dispatch({
             actionName:"loanPurchaseZone.useAllBalance"
+        })
+    },
+    recharge:function(){
+        appDispatcher.dispatch({
+            actionName:"recharge"//这里就不使用命名空间了。因为充值这个action并不是只有在loanPurchaseZone才有
+        })
+    },
+    fillInPurchaseAmount:function(purchaseAmount){
+        appDispatcher.dispatch({
+            actionName:"loanPurchaseZone.fillInPurchaseAmount",
+            purchaseAmount:purchaseAmount
         })
     }
 };
