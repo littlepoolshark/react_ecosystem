@@ -20,7 +20,7 @@ var UserUsableBalance=React.createClass({
 //余额全部购买
 var UsingAllBalanceButton=React.createClass({
     _handleClick:function(){
-        loanPurchaseZoneAction.useAllBalance();
+        loanPurchaseZoneAction.useAllBalance();//发出一个action
     },
     render:function(){
         return (
