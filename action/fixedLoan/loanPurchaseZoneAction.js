@@ -6,25 +6,20 @@ var loanPurchaseZoneAction={
             actionName:"loanPurchaseZone.getData"
         })
     },
-    checkPurchaseAmount:function(){
-        appDispatcher.dispatch({
-            actionName:"loanPurchaseZone.checkPurchaseAmount"
-        })
-    },
-    useAllBalance:function(){
-        appDispatcher.dispatch({
-            actionName:"loanPurchaseZone.useAllBalance"
-        })
-    },
     recharge:function(){
         appDispatcher.dispatch({
             actionName:"recharge"//这里就不使用命名空间了。因为充值这个action并不是只有在loanPurchaseZone才有
         })
     },
-    fillInPurchaseAmount:function(purchaseAmount){
+    changePurchaseAmount:function(purchaseAmount){
         appDispatcher.dispatch({
-            actionName:"loanPurchaseZone.fillInPurchaseAmount",
-            purchaseAmount:purchaseAmount
+            actionName:"changePurchaseAmount",
+            purchaseAmount:isNaN(parseInt(purchaseAmount)) ? "" : parseInt(purchaseAmount)
+        })
+    },
+    submitForm:function(){
+        appDispatcher.dispatch({
+            actionName:"submitForm"
         })
     }
 };
