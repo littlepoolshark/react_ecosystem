@@ -1,19 +1,22 @@
 require("./LoanBasicInfo.css");
 
 var React=require("react");
+var moment=require("moment");
 
 var LoanBasicInfo=React.createClass({
     render:function(){
+        var loanObject=this.props.loanObject;
+        
         return (
            <div className="row clearfix">
                <div className="col-xs-6">
                    <div className="loanBasicInfo-wrapper">
                        <label  className="loanBasicInfo-subtitle">项目额度：</label>
-                       <span className="loanBasicInfo-content">10000000</span>
+                       <span className="loanBasicInfo-content">{loanObject.totalAmount}</span>
                    </div>
                    <div className="loanBasicInfo-wrapper">
                        <label  className="loanBasicInfo-subtitle">发布时间：</label>
-                       <span className="loanBasicInfo-content">2016-04-06 10:02:15</span>
+                       <span className="loanBasicInfo-content">{moment(loanObject.publishTime).format("YYYY-MM-DD HH:mm:ss")}</span>
                    </div>
                    <div className="loanBasicInfo-wrapper">
                        <label  className="loanBasicInfo-subtitle">剩余时间：</label>

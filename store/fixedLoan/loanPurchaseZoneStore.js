@@ -19,6 +19,13 @@ var loanPurchaseZoneStore={
     getLoanObject:function(){
         return this.loanObject;
     },
+    setLoanObject:function(loanObject){
+        for(var key in loanObject){
+            if(key in this.loanObject === true){
+                this.loanObject[key]=loanObject[key];
+            }
+        }
+    },
     getValidationResult:function(){
         return this.validationResult;
     },

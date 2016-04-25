@@ -1,4 +1,6 @@
 var MicroEvent = require('../../lib/microevent');
+var appDispatcher=require('../../dispatcher/dispatcher.js');
+var $=require("jquery");
 
 var investmentListStore={
         items:[],
@@ -30,5 +32,25 @@ var investmentListStore={
         }
 }
 MicroEvent.mixin(investmentListStore);
+
+appDispatcher.register(function(payload){
+    switch(payload.actionName){
+        case "investmentList.getData":
+            $.ajax({
+                url:"/mock/investmentList.json?timestamp="+ new Date().getTime(),
+                type:"get",
+                dataType:"json",
+                success:function(rs){
+                    investmentListStore.setAll(rs.data);
+                    investmentListStore.trigger("change");
+                }
+            })
+
+            break;
+        default:
+            break;
+        //no op
+    }
+});
 
 module.exports=investmentListStore;

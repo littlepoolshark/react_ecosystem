@@ -137,7 +137,6 @@ var FigureOutActualPayment=React.createClass({
         var loanObject=this.props.loanObject;
         var redPackageAmount=this._figureOutRedPackageAmount(loanObject.redPackageList,loanObject.purchaseAmount);
         var actualPayment=this._figureOutActualPayment(redPackageAmount,loanObject.purchaseAmount);
-        console.log("redPackageAmount:",redPackageAmount,"actualPayment:",actualPayment,"purchaseAmount:",loanObject.purchaseAmount);
         var classes=classNames({
             "clearfix":true,
             "hide": redPackageAmount ? false : true
@@ -206,6 +205,7 @@ var LoanPurchaseZone=React.createClass({
     },
     componentDidMount:function(){
         loanPurchaseZoneStore.bind("change",function(){
+            console.log("into loanPurchaseZoneStore change callback")
             this._handleChange();
         }.bind(this));
 

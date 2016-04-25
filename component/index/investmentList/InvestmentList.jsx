@@ -56,23 +56,16 @@ var InvestmentButton=React.createClass({
 });
 
 var InvestmentList=React.createClass({
-
-    getInitialState:function(){
+    _getDataFromStore:function(){
         return {
-          items:[]
+            items:investmentListStore.getAll()
         }
     },
-    componentDidMount:function(){
-        investmentListAction.getData();
-        investmentListStore.bind("change",this._onChange);
-    },
-    _delete:function(id){
-        investmentListAction.deleteItem(id);
+    getInitialState:function(){
+        return this._getDataFromStore()
     },
     _onChange:function(){
-        this.setState({
-            items:investmentListStore.getAll()
-        })
+        this.setState(this._getDataFromStore())
     },
     render:function(){
 
@@ -98,6 +91,10 @@ var InvestmentList=React.createClass({
                 </tbody>
             </table>
         )
+    },
+    componentDidMount:function(){
+        investmentListStore.bind("change",this._onChange);
+        investmentListAction.getData();
     }
 });
 

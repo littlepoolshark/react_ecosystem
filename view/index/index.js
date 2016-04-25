@@ -108,7 +108,7 @@ var App=React.createClass({
                         <InformationList  items={informationListItems}  title="媒体报道" topic={informationListTopic} />
                     </div>
                 </div>
-                <Pagination totalPages={20}/>
+                {/*<Pagination totalPages={20}/>*/}
             </div>
 
         )
