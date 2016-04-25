@@ -1,6 +1,6 @@
 {
   "userBalance":10000,
-  "isLogin":true,
+  "isLogin":false,
   "loanObject":{
     "title":"好彩头20160425",
     "yearRate":0.095,
