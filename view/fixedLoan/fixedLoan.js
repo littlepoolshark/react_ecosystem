@@ -15,6 +15,7 @@ var LoanSummary=require("../../component/fixedLoan/loanSummary/LoanSummary.jsx")
 var LoanBasicInfo=require("../../component/fixedLoan/loanBasicInfo/LoanBasicInfo.jsx");
 var LoanProgressBar=require("../../component/fixedLoan/loanProgressBar/LoanProgressBar.jsx");
 var LoanPurchaseZone=require("../../component/fixedLoan/loanPurchaseZone/LoanPurchaseZone.jsx");
+var Table=require("../../component/utilities/table/Table.jsx");
 
 
 var App=React.createClass({
@@ -57,8 +58,40 @@ var App=React.createClass({
                         <div>项目信息</div>
                         <div>担保信息</div>
                         <div>证件资料</div>
-                        <div>交易记录</div>
-                        <div>还款记录</div>
+                        <Table
+                            headers={["序号","购买人","购买金额","购买时间"]}
+                            rows={[
+                                {
+                                    index:1,
+                                    userName:"***",
+                                    Amount:10000,
+                                    time:"2016-05-03"
+                                },
+                                {
+                                    index:2,
+                                    userName:"***",
+                                    Amount:10000,
+                                    time:"2016-05-03"
+                                }
+                            ]}
+                            />
+                        <Table
+                            headers={["序号","购买人","购买金额","购买时间"]}
+                            rows={[
+                                {
+                                    index:1,
+                                    userName:"***",
+                                    Amount:10000,
+                                    time:"2016-05-03"
+                                },
+                                {
+                                    index:2,
+                                    userName:"***",
+                                    Amount:10000,
+                                    time:"2016-05-03"
+                                }
+                            ]}
+                        />
                     </Tab>
                 </div>
             </div>

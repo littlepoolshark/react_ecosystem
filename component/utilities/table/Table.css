@@ -1,0 +1,22 @@
+.nt-table {
+    width:100%;
+    border-collapse: collapse;
+}
+.nt-table-header tr {
+    height:35px;
+}
+.nt-table-header th{
+    text-align:center;
+    font-size:16px;
+    color:#999;
+    background-color:#ededed;
+}
+.nt-table-body tr {
+    height:35px;
+}
+.nt-table-body tr td {
+    text-align:center;
+    font-size:14px;
+    color:#666;
+    border-bottom:1px solid #ededed;
+}
