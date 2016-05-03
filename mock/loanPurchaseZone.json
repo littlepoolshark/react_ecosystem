@@ -3,10 +3,10 @@
   "isLogin":false,
   "loanObject":{
     "title":"好彩头20160425",
-    "yearRate":0.095,
+    "yearRate":0.15,
     "deadline":3,
     "deadlineUnit":"个月",
-    "remainAmount":20000,
+    "remainAmount":10000,
     "totalAmount":100000,
     "redPackageList":{"500":10,"1000":100,"10000":1000},
     "publishTime":1461554612825
